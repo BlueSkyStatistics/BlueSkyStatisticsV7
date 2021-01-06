@@ -1608,7 +1608,7 @@ namespace BlueSky
                             if (!bskyQFetched)
                             {
                                 fetchQ = new CommandRequest();
-                                fetchQ.CommandSyntax = "BSkyQueue = BSkyGetHoldFormatObjList()";
+                                fetchQ.CommandSyntax = "BSkyQueue = BSkyGetHoldFormatObjList(bSkyCompatibility = 1)";
                                 analytics.ExecuteR(fetchQ, false, false);
 
                                 fetchQ.CommandSyntax = "is.null(BSkyQueue)";
