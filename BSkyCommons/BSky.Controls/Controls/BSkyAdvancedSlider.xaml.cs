@@ -12,14 +12,14 @@ namespace BSky.Controls
     /// 
     [TypeConverter(typeof(PropertySorter))]
     [DefaultPropertyAttribute("Type")]
-    public partial class BSkyAdvancedSlider : UserControl, IBSkyAffectsExecute, IBSkyInputControl, IBSkyControl, IBSkyEnabledControl , INotifyPropertyChanged
+    public partial class BSkyAdvancedSlider : UserControl, IBSkyAffectsExecute, IBSkyInputControl, IBSkyControl, IBSkyEnabledControl, INotifyPropertyChanged
     {
         public BSkyAdvancedSlider()
         {
             InitializeComponent();
             //MyProperty = "s";//bind text and slider
             SetTextAndSliderBinding();
-           // valtxt.TextChanged += new System.Windows.Controls.TextChangedEventHandler(valtext_TextChanged);
+            // valtxt.TextChanged += new System.Windows.Controls.TextChangedEventHandler(valtext_TextChanged);
             //this.valtext.TextChanged += new System.EventHandler(valtext_TextChanged);
         }
 
@@ -89,14 +89,37 @@ namespace BSky.Controls
         //    }
         //}
 
-     
 
+
+       // private string _sliderValue;
         private double _sliderValue;
 
         [Category("Control Settings"), PropertyOrder(8)]
+        // public double SliderValue
         public double SliderValue
         {
-            get { return  Math.Round(_sliderValue,2); }
+            //get { return  ToString(Math.Round(_sliderValue,2),10); }
+            get { return Math.Round(_sliderValue, 2);}
+            //get { return _sliderValue; }
+            //get {
+            //        if (_sliderValue != null)
+            //        {
+            //            double d = Convert.ToDouble(_sliderValue.Replace(",", "."));
+            //            double rounded = Math.Round(d, 2);
+            //            return rounded.ToString().Replace(",", ".");
+            //        }
+            //   // string specifier = "G";
+            //   // CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+            //   // Console.WriteLine(value.ToString(specifier, culture));
+            //        else
+            //        {
+            //        return _sliderValue;
+
+            //    }
+            ////return (Math.Round(Convert.ToDouble(_sliderValue), 2));
+            //}
+
+
             set
             {
                 if (_sliderValue != value)
