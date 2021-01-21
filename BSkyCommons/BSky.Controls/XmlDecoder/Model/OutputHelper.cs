@@ -1249,8 +1249,10 @@ namespace BSky.XmlDecoder
             else if (typeof(BSkyAdvancedSlider).IsAssignableFrom(element.GetType()))
             {
                 BSkyAdvancedSlider advslider = element as BSkyAdvancedSlider;
-
-                return advslider.SliderValue.ToString();
+                // added by Aaron 1/17/2021
+                //European languages use , as a decimal separator, in R , is not supported as a decimal character
+                //Think c(1,2,3) , when , is returned, we need to replace , by a . to pass to R
+                return advslider.SliderValue.ToString().Replace(",",".");
 
             }
             else if (typeof(BSkySlider).IsAssignableFrom(element.GetType()))
@@ -3500,7 +3502,6 @@ namespace BSky.XmlDecoder
 
                     if (binwidth != "0")
                     {
-
                         tempoutput = tempoutput + ",binwidth =" + binwidth;
                     }
 
@@ -3510,7 +3511,7 @@ namespace BSky.XmlDecoder
                     }
                     if (opacity != "")
                     {
-                        tempoutput = tempoutput + ",alpha=" + opacity;
+                         tempoutput = tempoutput + ",alpha=" + opacity;
                     }
 
                     tempoutput = tempoutput + ")";
