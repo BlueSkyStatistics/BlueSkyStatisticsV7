@@ -91,6 +91,7 @@
       <menu id="Friedman_Test" text="Friedman Test" commandtemplate="Friedman Test.xaml" commandoutputformat="Friedman Test.xml" owner="" nodetype="Leaf" />
       <menu id="Kruskal-Wallis_Test" text="Kruskal-Wallis Test" commandtemplate="Kruskal-Wallis Test.xaml" commandoutputformat="Kruskal-Wallis Test.xml" owner="" nodetype="Leaf" />
       <menu id="Wilcoxon-Mann-Whitney_Test,_independent_samples" text="Wilcoxon-Mann-Whitney Test, independent samples" commandtemplate="Wilcoxon-Mann-Whitney Test, independent samples.xaml" commandoutputformat="Wilcoxon-Mann-Whitney Test, independent samples.xml" owner="" nodetype="Leaf" />
+      <menu id="Wilcoxon_Signed-Rank_Test,_one_sample" text="Wilcoxon Signed-Rank Test, one sample" commandtemplate="Wilcoxon Signed-Rank Test, one sample.xaml" commandoutputformat="Wilcoxon Signed-Rank Test, one sample.xml" owner="" nodetype="Leaf" />
       <menu id="Wilcoxon_Test,_paired_samples" text="Wilcoxon Test, paired samples" commandtemplate="Wilcoxon Test, paired samples.xaml" commandoutputformat="Wilcoxon Test, paired samples.xml" owner="" nodetype="Leaf" />
     </menu>
     <menu id="PropSubMenu" text="Proportions" owner="" nodetype="Parent">
@@ -124,6 +125,7 @@
       </menu>
     </menu>
     <menu id="new_id" text="Survival Analysis" owner="" nodetype="Parent">
+	      <menu id="Competing_Risks,_one_group" text="Competing Risks, one group" commandtemplate="Competing Risks, one group.xaml" commandoutputformat="Competing Risks, one group.xml" owner="" nodetype="Leaf" />
       <menu id="Kaplan-Meier_Estimation,_compare_groups" text="Kaplan-Meier Estimation, compare groups" commandtemplate="Kaplan-Meier Estimation, compare groups.xaml" commandoutputformat="Kaplan-Meier Estimation, compare groups.xml" owner="" nodetype="Leaf" />
       <menu id="Kaplan-Meier_Estimation,_one_group" text="Kaplan-Meier Estimation, one group" commandtemplate="Kaplan-Meier Estimation, one group.xaml" commandoutputformat="Kaplan-Meier Estimation, one group.xml" owner="" nodetype="Leaf" />
     </menu>	
@@ -146,11 +148,12 @@
     </menu>
   </menu>
   <menu id="dataMenu" text="Data" nodetype="Parent">
+    <menu id="Add_ID_Variable" text="Add ID Variable" commandtemplate="Add ID Variable.xaml" commandoutputformat="Add ID Variable.xml" owner="" nodetype="Leaf" />
     <menu id="Bin_Numeric_Variable(s)" text="Bin Numeric Variable(s)" commandtemplate="Bin Numeric Variable(s).xaml" commandoutputformat="Bin Numeric Variable(s).xml" owner="" nodetype="Leaf" icon="images/Binning.png" showtoolbaricon="true" />
+      <menu id="Compute_Dummy_Variables" text="Compute Dummy Variables" commandtemplate="Compute Dummy Variables.xaml" commandoutputformat="Compute Dummy Variables.xml" owner="" nodetype="Leaf" />												   
     <menu id="ComputeSubMenu" text="Compute New Variable(s)" owner="" nodetype="Parent">
       <menu id="Compute" text="Compute" commandtemplate="Compute.xaml" commandoutputformat="Compute.xml" owner="" nodetype="Leaf" icon="images/Compute.png" showtoolbaricon="true" />
       <menu id="Compute,_apply_a_function_across_all_rows" text="Compute, apply a function across all rows" commandtemplate="Compute, apply a function across all rows.xaml" commandoutputformat="Compute, apply a function across all rows.xml" owner="" nodetype="Leaf" />
-      <menu id="Compute_Dummy_Variables" text="Compute Dummy Variables" commandtemplate="Compute Dummy Variables.xaml" commandoutputformat="Compute Dummy Variables.xml" owner="" nodetype="Leaf" />	  
       <menu id="sep" text="---------" owner="" nodetype="Leaf" />
       <menu id="Conditional_Compute,_if-then" text="Conditional Compute, if-then" commandtemplate="Conditional Compute, if-then.xaml" commandoutputformat="Conditional Compute, if-then.xml" owner="" nodetype="Leaf" />
       <menu id="Conditional_Compute,_if-then-else" text="Conditional Compute, if-then-else" commandtemplate="Conditional Compute, if-then-else.xaml" commandoutputformat="Conditional Compute, if-then-else.xml" owner="" nodetype="Leaf" />	  
@@ -158,8 +161,8 @@
     <menu id="Concatenate_Multiple_Variables,_handling_missing_values" text="Concatenate Multiple Variables, handling missing values" commandtemplate="Concatenate Multiple Variables, handling missing values.xaml" commandoutputformat="Concatenate Multiple Variables, handling missing values.xml" owner="" nodetype="Leaf" />
     <menu id="Convert_Variable(s)_to_Factors" text="Convert Variable(s) to Factors" commandtemplate="Convert Variable(s) to Factors.xaml" commandoutputformat="Convert Variable(s) to Factors.xml" owner="" nodetype="Leaf" />
     <menu id="new_id" text="Dates" owner="" nodetype="Parent">
-      <menu id="Convert_String_to_Date" text="Convert String to Date" commandtemplate="Convert String to Date.xaml" commandoutputformat="Convert String to Date.xml" owner="" nodetype="Leaf" />
       <menu id="Convert_Date_to_String" text="Convert Date to String" commandtemplate="Convert Date to String.xaml" commandoutputformat="Convert Date to String.xml" owner="" nodetype="Leaf" />
+      <menu id="Convert_String_to_Date" text="Convert String to Date" commandtemplate="Convert String to Date.xaml" commandoutputformat="Convert String to Date.xml" owner="" nodetype="Leaf" />									
     </menu>
     <menu id="Delete_Variable(s)" text="Delete Variable(s)" commandtemplate="Delete Variable(s).xaml" commandoutputformat="Delete Variable(s).xml" owner="" nodetype="Leaf" />
 	<menu id="Expand_Data_by_Weights" text="Expand Data by Weights" commandtemplate="Expand Data by Weights.xaml" commandoutputformat="Expand Data by Weights.xml" owner="" nodetype="Leaf" />		   
@@ -190,6 +193,7 @@
     <menu id="sep" text="---------" owner="" nodetype="Leaf" />
     <menu id="Aggregate_to_Dataset" text="Aggregate to Dataset" commandtemplate="Aggregate to Dataset.xaml" commandoutputformat="Aggregate to Dataset.xml" owner="" nodetype="Leaf" icon="images/Aggregate.png" showtoolbaricon="true" />
     <menu id="Aggregate_to_Output" text="Aggregate to Output" commandtemplate="Aggregate to Output.xaml" commandoutputformat="Aggregate to Output.xml" owner="" nodetype="Leaf" />
+    <menu id="Find_Duplicates" text="Find Duplicates" commandtemplate="Find Duplicates.xaml" commandoutputformat="Find Duplicates.xml" owner="" nodetype="Leaf" />
     <menu id="Merge_Datasets" text="Merge Datasets" commandtemplate="Merge Datasets.xaml" commandoutputformat="Merge Datasets.xml" owner="" nodetype="Leaf" />
     <menu id="Refresh_Grid" text="Refresh Data Grid" command="BlueSky.Commands.Data.RefreshDatagridCommand" owner="BSky" nodetype="Leaf" />
     <menu id="Reload_Dataset_from_File" text="Reload Dataset from File" commandtemplate="Reload Dataset from File.xaml" commandoutputformat="Reload Dataset from File.xml" owner="" nodetype="Leaf" />
@@ -199,6 +203,7 @@
       <menu id="Reshape,_long_to_wide" text="Reshape, long to wide" commandtemplate="Reshape, long to wide.xaml" commandoutputformat="Reshape, long to wide.xml" owner="" nodetype="Leaf" />
     </menu>
     <menu id="Sample_Dataset" text="Sample Dataset" commandtemplate="Sample Dataset.xaml" commandoutputformat="Sample Dataset.xml" owner="" nodetype="Leaf" />
+    <menu id="Select_First_or_Last_Observations_Within_Groups" text="Select First or Last Observations Within Groups" commandtemplate="Select First or Last Observations Within Groups.xaml" commandoutputformat="Select First or Last Observations Within Groups.xml" owner="" nodetype="Leaf" />
     <menu id="Sort_Dataset" text="Sort Dataset" commandtemplate="Sort Dataset.xaml" commandoutputformat="Sort Dataset.xml" owner="" nodetype="Leaf" icon="images/Sort.png" showtoolbaricon="true" />
     <menu id="Sort_to_Output" text="Sort to Output" commandtemplate="Sort to Output.xaml" commandoutputformat="Sort to Output.xml" owner="" nodetype="Leaf" />
     <menu id="splitMenu" text="Split Dataset" owner="" nodetype="Parent">
