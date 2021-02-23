@@ -10,14 +10,14 @@ using BSky.Interfaces.Model;
 using BSky.Interfaces.Interfaces;
 using System.Text;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace BlueSky.Services
 {
     public class DataService : IDataService
     {
-        private Dictionary<string, DataSource> _datasources = new Dictionary<string, DataSource>();
+        private Dictionary<string, DataSource> _datasources = new Dictionary<string,DataSource>();
         private Dictionary<string, string> _datasourcenames = new Dictionary<string, string>();//05Mar2014
         ILoggerService logService = LifetimeService.Instance.Container.Resolve<ILoggerService>();//17Dec2012
 
@@ -48,8 +48,8 @@ namespace BlueSky.Services
             string sheetname = string.Empty;//no sheetname for empty dataset(new dataset)
             //15Jun2015 if Dataset is created and loaded from syntax UI SessionDatasetCounter can have issues as it may not be increamented when
             // datasetset is loaded from syntax
-            if (_datasources.Keys.Contains(datasetname + sheetname))
-                return _datasources[datasetname + sheetname];
+            if (_datasources.Keys.Contains(datasetname+sheetname))
+                return _datasources[datasetname+sheetname];
 
             UAReturn datasrc = _analyticService.EmptyDataSourceLoad(datasetname, datasetname, null);//second pram was full path filename on disk
             if (datasrc.Datasource == null)
@@ -100,7 +100,7 @@ namespace BlueSky.Services
         public string GetUniqueNewDatasetname()
         {
             string newdatasetname = string.Empty;
-            for(; ;)
+            for (; ; )
             {
                 newdatasetname = "Dataset" + SessionDatasetCounter;
                 if (_datasourcenames.Keys.Contains(newdatasetname))
@@ -119,7 +119,7 @@ namespace BlueSky.Services
         //If there is a number in the begining then we prefix 'D' to it.
         //if fname is empty then we generate Dataset1, Dataset2 etc.
 
-        public string GetDatasetName(string fname = "", string sheetname="")
+        public string GetDatasetName(string fname = "", string sheetname = "")
         {
             string datasetname = string.Empty;
 
@@ -141,7 +141,7 @@ namespace BlueSky.Services
                 datasetname = GetUniqueNewDatasetname();
             return datasetname;
         }
-        
+
         //Find existing(already loaded) DataSource by using dataset name
         public DataSource FindDataSourceFromDatasetname(string datasetname)
         {
@@ -155,7 +155,7 @@ namespace BlueSky.Services
             return loadedDS;
         }
 
-        public DataSource Open(string filename, string sheetname, bool removeSpacesSPSS=false,  IOpenDataFileOptions odfo=null)
+        public DataSource Open(string filename, string sheetname, bool removeSpacesSPSS=false, IOpenDataFileOptions odfo=null)
         {
             if (sheetname==null || sheetname.Trim().Length == 0) //29Apr2015 just to make sure sheetname should have valid chars and not spaces.
                 sheetname = string.Empty; 
@@ -189,7 +189,7 @@ namespace BlueSky.Services
             ////for (; SessionDatasetCounter < 1000;)
             ////{
             ////    DSName.Clear();
-            ////    DSName.Append("Dataset" + SessionDatasetCounter);//(GetDatasetName(filename));// 
+            ////    DSName.Append("Dataset" + SessionDatasetCounter);
             ////    if (_datasourcenames.Keys.Contains(DSName.ToString()))
             ////    {
             ////        //Folowing code may not be needed but can be use to differentiate between memory and file datasets
@@ -240,7 +240,7 @@ namespace BlueSky.Services
                 string msg1 = "Dataset with the same name is already loaded in the datagrid.\n";
                 string msg2 = "Do you want to replace it with the new one?";
 
-                MessageBoxResult mbr = MessageBox.Show(msg1+msg2, "Overwrite exisiting dataset?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult mbr = MessageBox.Show(msg1 + msg2, "Overwrite exisiting dataset?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (mbr == MessageBoxResult.Yes)
                 {
                     replaceDS = true;//Overwrite DataSource if user selects YES
@@ -314,15 +314,15 @@ namespace BlueSky.Services
             DataSource ds = datasrc.Datasource.ToClientDataSource();
             if(ds!=null)//03Dec2012
             {
-                if (keyfound )//25Oct2016 dataset already existed but was set to null, somehow
-                {
+                if (keyfound)//25Oct2016 dataset already existed but was set to null, somehow
+                { 
                     //remove its old key/val and then add new(outside 'if' )
                     _datasources.Remove(ds.FileName + ds.SheetName);///key filename
                     //21OCt2019 moved in 'if' below _datasourcenames.Remove(datasetname /*+ ds.SheetName*/);//5Mar2014
                 }
                 else
                 {
-                    if(loadedDS!=null)
+                    if (loadedDS != null)
                         _datasources.Remove(loadedDS.FileName + loadedDS.SheetName);///key filename
                 }
 
@@ -330,12 +330,12 @@ namespace BlueSky.Services
                     _datasourcenames.Remove(datasetname);
 
                 //Add new keys
-                if(!_datasources.ContainsKey(ds.FileName + ds.SheetName))//for avoiding crash
+                if (!_datasources.ContainsKey(ds.FileName + ds.SheetName))//for avoiding crash
                     _datasources.Add(ds.FileName + ds.SheetName, ds);///key filename
                 if (!_datasourcenames.ContainsKey(datasetname))//for avoiding crash
                     _datasourcenames.Add(datasetname /*+ ds.SheetName*/, ds.FileName);//5Mar2014
             }
-                                                  
+
             ///incrementing dataset counter //// 14Feb2013
             //16OCt2019 if(!keyfound) SessionDatasetCounter++;
             SendToOutput(datasrc);
@@ -423,7 +423,7 @@ namespace BlueSky.Services
                         ds.FileName = fname;
                     else
                     {
-                        // ds.FileName = dframename;
+                       // ds.FileName = dframename;
                         ds.SheetName = UtilFunctions.GetSheetname(ds);
                     }
                     #endregion
@@ -556,6 +556,12 @@ if (ds == null)//20Oct2016 Making UI grid NULL
         public DataSource Refresh(DataSource dsourceName)//25Mar2013
         {
             string sheetname = dsourceName.SheetName != null ? dsourceName.SheetName : string.Empty;// BugId #JM12Apr16
+
+            //convert (to data.frame) if dataset is of class tibble
+            CommandRequest cmd = new CommandRequest();
+            cmd.CommandSyntax = "BSkyCheckIfTibble('" + dsourceName.Name + "')";
+            object tempo2 = _analyticService.ExecuteR(cmd, true, false);
+
             //filename = filename.ToLower();
             //if (_datasources.Keys.Contains(filename.ToLower()))
             //    return _datasources[filename];
@@ -589,11 +595,9 @@ if (ds == null)//20Oct2016 Making UI grid NULL
             ds.IsBasketData = dsourceName.IsBasketData;
 
             ds.SheetName = UtilFunctions.GetSheetname(dsourceName);//fix for Excel dataset becomes null and reload from disk does not work
-            ds.isUnprocessed = dsourceName.isUnprocessed;//for new dataset
-
+            ds.isUnprocessed = dsourceName.isUnprocessed;//for new dataset.
             if (ds != null)//03Dec2012
             {
-                
                 //03jun2018 _datasources.Remove(dsourceName.FileName + sheetname);//Remove old
                 _datasources.Remove(_datasourcenames[dsourceName.Name] + sheetname);//Remove old
                 //////if (ds.FileName.Equals(ds.Name))//its a memory dataframe. Sheetname should be blank
