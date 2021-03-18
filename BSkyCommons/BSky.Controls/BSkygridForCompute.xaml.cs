@@ -198,6 +198,13 @@ namespace BSky.Controls
                 // HelpText1.Items.Add("Help:"); 
                 // HelpText1.Items.Add("The absolute value, e.g. abs(varx)"); 
             }
+            if (Text == "exp")
+            {
+                tb.Text = tb.Text + "exp( )";
+                // HelpText1.Text = "The absolute value, e.g. if varx =-3, abs(varx) results in 3"; 
+                // HelpText1.Items.Add("Help:"); 
+                // HelpText1.Items.Add("The absolute value, e.g. abs(varx)"); 
+            }
             if (Text == ">")
             {
 
@@ -826,6 +833,14 @@ namespace BSky.Controls
                 // HelpText1.Items.Add("Help:"); 
                 // HelpText1.Items.Add("The absolute value, e.g. abs(varx)"); 
             }
+            if (Text == "exp")
+            {
+                HelpText1.Text = "Computes the exponential function, e.g. exp(3)";
+              
+                // HelpText1.Items.Add("Help:"); 
+                // HelpText1.Items.Add("The absolute value, e.g. abs(varx)"); 
+            }
+
             if (Text == ">")
             {
                 HelpText1.Text = "Greater than, for e.g. if varx = c(1,2,3), varx > 2 results in False False True";

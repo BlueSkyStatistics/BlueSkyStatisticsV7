@@ -48,6 +48,7 @@
                             <p:FormulaComputeButton Content="log2" Height="25" Margin ="5,5,5,5"  x:Name="Button11"  Width="35"  />
                             <p:FormulaComputeButton Content="Mod" Height="25" Margin ="5,5,5,5"  x:Name="Button22" Width="35"  />
                             <p:FormulaComputeButton Content="abs" Height="25" Margin ="5,5,5,5" x:Name="Button32" Width="35"  />
+                            <p:FormulaComputeButton Content="exp" Height="25" Margin ="5,5,5,5" x:Name="Button33" Width="35"  />
                         </WrapPanel>
                         <!--<Label Name ="helplab1"  Grid.Row="3"></Label>-->
 
