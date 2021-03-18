@@ -72,6 +72,7 @@ namespace BSky.XmlDecoder
 
         public static object GetGlobalMacro(string Macro, string variablename)
         {
+            bool duplicate = false;
             if (!GlobalList.ContainsKey(Macro))
             {
                 return null;
@@ -80,7 +81,7 @@ namespace BSky.XmlDecoder
             {
                 return GlobalList[Macro];
             }
-            return EvaluateValue(GlobalList[Macro] as DependencyObject, variablename);
+            return EvaluateValue(GlobalList[Macro] as DependencyObject, variablename, duplicate);
         }
 
         private static Dictionary<string, string> MacroList;
@@ -130,14 +131,14 @@ namespace BSky.XmlDecoder
                     //    output += str;
                 }
             }
-            return output;
+            return output; 
         }
 
         //Added by Aaron 12/11/2013
         //This function is called for every 
         //Added by Aaron 12/11/2013
         //This function is called for every 
-        public static string EvaluateValue(DependencyObject obj, string objname) // Group Variable shoul also be added to this function
+        public static string EvaluateValue(DependencyObject obj, string objname,bool duplicate) // Group Variable shoul also be added to this function
         {
             //13Sep2013 col name and col object /// Starts
             int paramtype = 0; // 0 -> default, 1-> col name, 2-> col type
@@ -1021,6 +1022,8 @@ namespace BSky.XmlDecoder
                 BSkyTextBox txt = element as BSkyTextBox;
                 string vals = string.Empty;
 
+                
+
                 //Added by Aaron 09/07/2014
                 //Added this code to amke sure that an empty string is returned if the textbox is disabled
                 if (txt.Enabled == false)
@@ -1054,6 +1057,12 @@ namespace BSky.XmlDecoder
 
                     return result;
                 }
+                if (!txt.AllowSpaces && !duplicate )
+                {
+                    if (txt.Text.Contains(" ")) MessageBox.Show("You have entered a blank space in one of the textbox controls that don't allow a blank space. Please re-launch the dialog and remove the blank space", "Blank Characters in TextBox", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+              //  MessageBox.Show(firstmsg + misspkgs + msg, BSky.GlobalResources.Properties.Resources.ErrReqRPkgMissing, MessageBoxButton.OK, MessageBoxImage.Error);
+
                 if (txt.SubstituteSettings != null)
                 {
                     if (txt.SubstituteSettings.Contains("TextAsIs"))
@@ -1529,6 +1538,8 @@ namespace BSky.XmlDecoder
 
             Dictionary<string, string> CommandKeyValDict = new Dictionary<string, string>();
             BSkyCanvas obj1 = null;
+            bool duplicate = false;
+            List<string> ls = new List<string>();
             string customsyntax = string.Empty;
             if (obj != null)//when prerequisite command is processed 'obj' is blank. obj will not be null for main syntax.
             {
@@ -1549,12 +1560,23 @@ namespace BSky.XmlDecoder
                                     //So line of code below is called for every string contained in the curly brace e.g. {source}
                                     //in the command syntax
                                     string matchedText = match.Groups[1].Value;
+                                    duplicate = false;
+                                    if (ls.Contains(matchedText))
+                                    {
+                                        duplicate = true;
+                                    }
+                                    else
+                                    {
+                                        ls.Add(matchedText);
+                                    }
+                                    
+
                                     //Aaron 12/11/2013
                                     //The function below gets the values we are going to replace the control name in the syntax command by
                                     //For example the control named source is reference in the command as {source}. In the command syntax
                                     //source gets replaced by var1,var2
                                     //The function below gets the string to replace the control name in the command syntax
-                                    return GetParam(obj, matchedText);
+                                    return GetParam(obj, matchedText,duplicate);
                                 });
             }
             else if (customsyntax == "Rank")
@@ -1563,7 +1585,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -1707,7 +1738,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -1915,7 +1955,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -2114,7 +2163,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -2316,7 +2374,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -2507,7 +2574,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -2895,7 +2971,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -3383,7 +3468,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -3563,7 +3657,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -3828,7 +3931,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -4091,7 +4203,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -4355,7 +4476,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -4541,7 +4671,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -4728,7 +4867,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -4912,7 +5060,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -5072,7 +5229,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -5260,7 +5426,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -5463,7 +5638,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -5683,7 +5867,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -6149,7 +6342,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -6377,7 +6579,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -6613,7 +6824,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -6849,7 +7069,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -7043,7 +7272,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -7227,7 +7465,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -7400,7 +7647,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -7543,7 +7799,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -7716,7 +7981,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -7904,7 +8178,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -8123,7 +8406,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -8296,7 +8588,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -8452,7 +8753,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -8596,7 +8906,16 @@ namespace BSky.XmlDecoder
                 foreach (Match m in mcol)
                 {
                     string matchedText = m.Groups[1].Value;
-                    string result = GetParam(obj, matchedText);
+                    duplicate = false;
+                    if (ls.Contains(matchedText))
+                    {
+                        duplicate = true;
+                    }
+                    else
+                    {
+                        ls.Add(matchedText);
+                    }
+                    string result = GetParam(obj, matchedText, duplicate);
                     if (!CommandKeyValDict.ContainsKey(matchedText))
                     {
                         CommandKeyValDict.Add(matchedText, result);
@@ -8639,7 +8958,7 @@ namespace BSky.XmlDecoder
                 string suffix = "";
                 string fixedandobserved = "";
                 string ICC = "";
-                string ls = "";
+                string ls1 = "";
 
                 foreach (KeyValuePair<string, string> kv in CommandKeyValDict)
                 {
@@ -8782,7 +9101,7 @@ namespace BSky.XmlDecoder
                     }
                     if (key == "ls")
                     {
-                        ls = value;
+                        ls1 = value;
                     }
                 }
 
@@ -9082,7 +9401,7 @@ namespace BSky.XmlDecoder
                 }
 
 
-                if (ls == "TRUE")
+                if (ls1 == "TRUE")
                 {
 
 
@@ -9451,7 +9770,7 @@ namespace BSky.XmlDecoder
             return output;
         }
 
-
+        
         private static string getVariablesInMixedModel(string tvarbox1, string tvarbox2, string NestingVar, List<string> covariates, List<string> fixedEffects, string randomvars)
         {
             string varsForMissing = "";
@@ -9710,8 +10029,13 @@ namespace BSky.XmlDecoder
         private static string FixExtraCommasInCommandSyntax(string inputtext) //14Jul2014 remove extra commas from command
         {
             //Step 1.// Pattern to match in phase 1
-            string pattern = @"\s*\,+\s*";//@"\s*[\,]\s*[\,]"; //set of adjecent commas(eg. ,,, , ,,,,, are 3 sets)
 
+            //Added by Aaron 03/15/2021
+            //Commented below as it was replacing "Houston, Texas" in recode criteria and hence not finding the criteria 
+            // string pattern = @"\s*\,+\s*";//@"\s*[\,]\s*[\,]"; //set of adjecent commas(eg. ,,, , ,,,,, are 3 sets)
+
+            //look if adjacent adjacent commas are present 
+            string pattern = @"\s*\,\s*\,";
             //// Finding pattern and replacing it with something
             bool str = Regex.IsMatch(inputtext, pattern);
             MatchCollection mc = null;
@@ -9929,7 +10253,7 @@ namespace BSky.XmlDecoder
             return (inputtext);
         }
 
-        public static string GetParam(DependencyObject obj, string paramname)
+        public static string GetParam(DependencyObject obj, string paramname, bool duplicate)
         {
             string tempVal = string.Empty;
 
@@ -9939,7 +10263,7 @@ namespace BSky.XmlDecoder
             }
             else
             {
-                tempVal = EvaluateValue(obj, paramname);
+                tempVal = EvaluateValue(obj, paramname,duplicate);
             }
 
             return tempVal;
@@ -9951,6 +10275,7 @@ namespace BSky.XmlDecoder
             string[] param = splits.Skip(1).ToArray();
             string[] paramvalues = new string[param.GetLength(0)];
             int i = 0;
+            bool duplicate = false;
 
             foreach (string s in param)
             {
@@ -9962,7 +10287,7 @@ namespace BSky.XmlDecoder
                 }
                 else
                 {
-                    tempVal = EvaluateValue(obj, s);
+                    tempVal = EvaluateValue(obj, s,duplicate);
                 }
                 paramvalues[i++] = tempVal;
             }

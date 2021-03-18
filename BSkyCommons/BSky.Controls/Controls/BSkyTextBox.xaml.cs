@@ -59,6 +59,25 @@ namespace BSky.Controls
             set;
         }
 
+        private bool _allowspaces = false;
+
+        [Category("Control Settings"), PropertyOrder(9)]
+        [Description("Default is False (disabled). This property controls whether spaces are allowed in the textbox control.")]
+        public bool AllowSpaces
+        {
+            get
+            {
+                return _allowspaces;
+            }
+
+            set
+            {
+                _allowspaces = value;
+            }
+
+        }
+
+
 
         //Added by Aaron 07/20/2014
         //If values entered in this control create new variables or datasets and these variables or dataset already exist, select whether the user should be prompted before overwriting 

@@ -3658,6 +3658,7 @@ namespace BSky.Controls
                     copytextbox.Name = child1.Name;
                     copytextbox.Text = child1.Text;
                     copytextbox.Name = child1.Name;
+                    copytextbox.AllowSpaces = child1.AllowSpaces;
                     copytextbox.Width = child1.Width;
                     copytextbox.Height = child1.Height;
                     copytextbox.TextChangedBehaviour = child1.TextChangedBehaviour;
