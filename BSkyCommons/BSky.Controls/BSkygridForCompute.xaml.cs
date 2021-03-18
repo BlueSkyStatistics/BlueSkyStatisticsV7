@@ -268,6 +268,13 @@ namespace BSky.Controls
                 //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
             }
 
+            if (Text == "is.na")
+            {
+                tb.Text = tb.Text + "is.na(  )";
+                // HelpText1.Text = "Integer division, for e.g. if varx = c(5,6), varx %/% 2 results in 2 , 3"; 
+                //HelpText1.Items.Add("Help:"); 
+                //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
+            }
 
             //Math operators 
             if (Text == "round")
@@ -478,7 +485,20 @@ namespace BSky.Controls
                 //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
             }
 
-
+            if (Text == "ToOrdered")
+            {
+                tb.Text = tb.Text + "factor(x = var1, ordered=TRUE)";
+                // HelpText1.Text = "Converts a numeric to a string. For e.g. if varx = c(12.2,3.3), as.string(varx) will return c(\"12.2\",\"3.3\")"; 
+                //HelpText1.Items.Add("Help:"); 
+                //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
+            }
+            if (Text == "ToLogical")
+            {
+                tb.Text = tb.Text + "as.logical(  )";
+                // HelpText1.Text = "Converts a numeric to a string. For e.g. if varx = c(12.2,3.3), as.string(varx) will return c(\"12.2\",\"3.3\")"; 
+                //HelpText1.Items.Add("Help:"); 
+                //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
+            }
 
 
             //Random numbers 
@@ -866,6 +886,12 @@ namespace BSky.Controls
                 //HelpText1.Items.Add("Help:"); 
                 //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
             }
+            if (Text == "is.na")
+            {
+                HelpText1.Text = "Checking if NA, for e.g. if varx = c(5,6,NA,7), is.na(varx) results in c(FALSE,FALSE,TRUE,FALSE)";
+                //HelpText1.Items.Add("Help:"); 
+                //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
+            }
 
 
             //Math operators 
@@ -1151,6 +1177,39 @@ namespace BSky.Controls
                 //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
             }
 
+            if (Text == "ToOrdered")
+            {
+                HelpText1.Text = "Create an Ordered factor.";
+                HelpText1.Text += "\n\nfactor(x = character(), levels, labels = levels,exclude = NA, ordered = is.ordered(x))";
+                HelpText1.Text += "\n\nx: a vector of data, usually a small number of distinct values";
+                HelpText1.Text += "\n\nlevels: The unique values that x contains";
+                HelpText1.Text += "\n\nlabels: either an optional character vector of labels for the levels, or a character string of length 1.";
+                HelpText1.Text += "\n\nexclude: a vector of values to be excluded when forming the set of levels.";
+                HelpText1.Text += "\n\nordered: logical flag to determine if the levels should be regarded as ordered ";
+                HelpText1.Text += "\n\nvar1=c(1,1,0,0,1,1,0,1,0)";
+                HelpText1.Text += "\nUsage1:factor(x = var1)";
+                HelpText1.Text += "\nUsage2:factor(x = var1, levels=c(0,1,2), labels = c(\"good\",\"better\", \"best\"), ordered=TRUE)";
+               
+
+                //HelpText1.Items.Add("Help:"); 
+                //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
+            }
+
+            if (Text == "ToLogical")
+            {
+                HelpText1.Text = "Coerce an object to type logical.";
+                HelpText1.Text += "\n\nas.logical attempts to coerce its argument to be of logical type.";
+                HelpText1.Text += "\n\nFor factors, this uses the levels (labels). Like as.vector it strips the attributes including names.";
+                HelpText1.Text += "\n\nCharacter strings c(\"T\", \"TRUE\", \"True\", \"true\") are regarded as true";
+                HelpText1.Text += "\n\nCharacter strings c(\"F\", \"FALSE\", \"False\", \"false\") are regarded as true";
+                HelpText1.Text += "\n\nvar1=c(\"T\", \"TRUE\"\"F\", \"FALSE\")";
+                HelpText1.Text += "\nUsage1:as.logical(x = var1)";
+               
+
+
+                //HelpText1.Items.Add("Help:"); 
+                //HelpText2.Items.Add("and, for e.g. if varx = c(1,2), varx > 3 & varx < 2 results in False False"); 
+            }
 
 
 

@@ -76,6 +76,7 @@
                             <p:FormulaComputeButton Content="|"  Margin ="5,5,5,5" Height="25"  x:Name="Button19"  Width="25"  />
                             <p:FormulaComputeButton Content="&amp;"  Margin ="5,5,5,5" Height="25"  x:Name="Button20"  Width="35" />
                             <p:FormulaComputeButton Content="%/%"  Margin ="5,5,5,5" Height="25"  x:Name="Button21"  Width="35" />
+                            <p:FormulaComputeButton Content="is.na"  Margin ="5,5,5,5" Height="25"  x:Name="Button210"  Width="35" />
                         </WrapPanel>
                         <!--<Label Name ="helplab2" Margin ="0,0,0,0" Grid.Row="3"></Label>-->
                         <!--<TextBlock Name="HelpText2" Grid.Row="4" TextWrapping ="Wrap" ></TextBlock>-->
@@ -181,8 +182,10 @@
                    Double click the button to add the function to the compute command.</TextBlock>
                         <WrapPanel  Grid.Row="1" Width="200" >
                             <p:FormulaComputeButton Content="ToNumeric"  Margin ="5,5,5,5" Height="25"  x:Name="Button80"  Width="75" />
-                            <p:FormulaComputeButton Content="ToString"  Margin ="5,5,5,5" Height="25"  x:Name="Button81"   Width="75" />
+                            <p:FormulaComputeButton Content="ToCharacter"  Margin ="5,5,5,5" Height="25"  x:Name="Button81"   Width="75" />
                             <p:FormulaComputeButton Content="ToFactor"  Margin ="5,5,5,5" Height="25"  x:Name="Button82"   Width="75" />
+                            <p:FormulaComputeButton Content="ToOrdered"  Margin ="5,5,5,5" Height="25"  x:Name="Button820"   Width="75" />
+                            <p:FormulaComputeButton Content="ToLogical"  Margin ="5,5,5,5" Height="25"  x:Name="Button822"   Width="75" />
                             
                          </WrapPanel>
                         <!--<Label Name ="helplab2" Margin ="0,0,0,0" Grid.Row="3"></Label>-->

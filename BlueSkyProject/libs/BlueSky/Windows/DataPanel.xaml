@@ -175,15 +175,15 @@
                                 <MenuItem Header="Add Factor Level" Name="_addfactorlevel"  Click="_addfactorlevel_Click"></MenuItem>
                                 <MenuItem Header="Change Label" Name="_changelabel"  Click="_changelabel_Click"></MenuItem>
                                 <MenuItem Header="Make Factor" Name="_makeFactor"  Click="_makeFactor_Click"></MenuItem>
-                                <MenuItem Header="Make String" Name="_makeString"  Click="_makeString_Click"></MenuItem>
+                                <MenuItem Header="Make Character" Name="_makeString"  Click="_makeString_Click"></MenuItem>
 <MenuItem Header="Make Numeric" Name="_makeNumeric"  Click="_makeNumeric_Click"></MenuItem>
                                 <!--<MenuItem Header="Nominal/Ordinal to Scale" Name="_nomOrd2Scale"  Click="_nomOrd2Scale_Click"></MenuItem>
                                     <MenuItem Header="Nominal to Ordinal" Name="_nomToOrd"  Click="_nomToOrd_Click"></MenuItem>
                                     <MenuItem Header="Ordinal to Nominal" Name="_ordToNom"  Click="_ordToNom_Click"></MenuItem>-->
                                 <MenuItem Header="Insert New Numeric Variable" Name="_insertNewVar" Click="_insertNewVar_Click"></MenuItem>
                                 <MenuItem Header="Insert New Numeric Variable At End" Name="_insertNewVarAtEnd" Click="_insertNewVarAtEnd_Click"></MenuItem>
-                                <MenuItem Header="Insert New String Variable" Name="_insertStringVar" Click="_insertStringVar_Click"></MenuItem>
-                                <MenuItem Header="Insert New String Variable At End" Name="_insertStringVarAtEnd" Click="_insertStringVarAtEnd_Click"></MenuItem>
+                                <MenuItem Header="Insert New Character Variable" Name="_insertStringVar" Click="_insertStringVar_Click"></MenuItem>
+                                <MenuItem Header="Insert New Character Variable At End" Name="_insertStringVarAtEnd" Click="_insertStringVarAtEnd_Click"></MenuItem>
                                <MenuItem Header="Insert New Date Variable" Name="_insertDateVar" Click="_insertDateVar_Click"></MenuItem>
                                 <MenuItem Header="Insert New Date Variable At End" Name="_insertDateVarAtEnd" Click="_insertDateVarAtEnd_Click"></MenuItem>
 
