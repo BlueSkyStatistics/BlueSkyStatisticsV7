@@ -1394,7 +1394,8 @@ namespace BSky.Statistics.R
                                     object[] newarr = (object[])data;
                                     for (int i = 0; i < notesize; ++i)
                                     {
-                                        if (newarr[i].ToString() == "-2146826288" ||
+                                        if (newarr[i] == null ||  //11Apr2022 null exception handled
+                                            newarr[i].ToString() == "-2146826288" ||
                                             newarr[i].ToString() == "-2146826246")
                                             innrtxt = string.Empty;
                                         else
