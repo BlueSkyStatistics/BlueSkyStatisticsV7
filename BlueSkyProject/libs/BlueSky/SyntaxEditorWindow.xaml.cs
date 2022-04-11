@@ -346,7 +346,7 @@ namespace BlueSky
                     lst.SelectedForDump = true;
 
                 ////17Nov2017 for opening a flat file that has ; as a field separator. this field separator is not for line termination in R syntax.
-                commands = commands.Replace("\";\"", "'BSkySemiColon'").Replace("';'", "'BSkySemiColon'");
+                commands = commands.Replace("\";\"", "\"BSkySemiColon\"").Replace("';'", "'BSkySemiColon'"); //fix for reload from disk, mainly
 
                 ////03Oct2014 We should remove R comments right here, before proceeding with execution.
                 string nocommentscommands = RemoveCommentsFromCommands(commands);
@@ -774,8 +774,7 @@ namespace BlueSky
                     }
                 }
                 //17Nov2017 Putting back the semicolon in place of BSkySemiColon
-                stmt = stmt.Replace("'BSkySemiColon'", "';'");
-
+                stmt = stmt.Replace("'BSkySemiColon'", "';'").Replace("\"BSkySemiColon\"", "\";\"");
                 if (AdvancedLogging) logService.WriteToLogLevel("ExtraLogs: Syntax command category : " + rct.ToString(), LogLevelEnum.Info);
 
                 stmt = stmt.Trim().Replace("\"$$", "\"#");
@@ -796,6 +795,7 @@ namespace BlueSky
                             else
                             {
                                 string originalFormatSyn2 = seltext.Substring(start, end).Replace(';', '\n');
+                                originalFormatSyn2 = originalFormatSyn2.Replace("'BSkySemiColon'", "';'").Replace("\"BSkySemiColon\"", "\";\"");
                                 SendCommandToOutput(originalFormatSyn2, "R-Command");
                                 ExecuteOtherCommand(ow, stmt);
                             }
@@ -836,6 +836,7 @@ namespace BlueSky
                             CreateOuput(ow);
                             SendCommandToOutput(stmt, "BSkyFormat");//26Aug2014 blue colored
                             ExecuteBSkyFormatCommand(stmt, ref bskyfrmtobjcount, ow);
+                            restBSkyFormat();
                             OpenSinkFile(@sinkfilefullpathname, "wt");
                             SetSink();
                             break;
@@ -877,7 +878,7 @@ namespace BlueSky
                             SendCommandToOutput(originalFormatSyn, "R-Command");
 
                             if (AdvancedLogging) logService.WriteToLogLevel("ExtraLogs: Categorized. Before execution.", LogLevelEnum.Info);
-
+                            stmt = stmt.Replace("'BSkySemiColon'", "';'").Replace("\"BSkySemiColon\"", "\";\"");
                             ExecuteOtherCommand(ow, stmt);
 
                             if (AdvancedLogging) logService.WriteToLogLevel("ExtraLogs: Categorized. After execution.", LogLevelEnum.Info);
@@ -1842,6 +1843,15 @@ namespace BlueSky
                 object o = analytics.ExecuteR(cmd, false, false);//executing syntax editor commands
                 SetSink();
             }
+        }
+
+        //BSkyFormat residue cleanup
+        private void restBSkyFormat()
+        {
+            CommandRequest cmd = new CommandRequest();
+            cmd.CommandSyntax = "BSkyQueue = BSkyGetHoldFormatObjList(bSkyCompatibility = 1)";
+            object returnobj = analytics.ExecuteR(cmd, true, false);
+
         }
 
         private void ExecuteBSkyFormatCommand(string stmt, ref int bskyfrmtobjcount, OutputWindow ow)
