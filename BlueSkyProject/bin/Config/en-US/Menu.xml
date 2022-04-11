@@ -153,6 +153,7 @@
       <menu id="Compute_Dummy_Variables" text="Compute Dummy Variables" commandtemplate="Compute Dummy Variables.xaml" commandoutputformat="Compute Dummy Variables.xml" owner="" nodetype="Leaf" />												   
     <menu id="ComputeSubMenu" text="Compute New Variable(s)" owner="" nodetype="Parent">
       <menu id="Compute" text="Compute" commandtemplate="Compute.xaml" commandoutputformat="Compute.xml" owner="" nodetype="Leaf" icon="images/Compute.png" showtoolbaricon="true" />
+	<menu id="Conditional_Compute" text="Conditional Compute" commandtemplate="Conditional Compute.xaml" commandoutputformat="Conditional Compute.xml" owner="" nodetype="Leaf" />  
       <menu id="Compute,_apply_a_function_across_all_rows" text="Compute, apply a function across all rows" commandtemplate="Compute, apply a function across all rows.xaml" commandoutputformat="Compute, apply a function across all rows.xml" owner="" nodetype="Leaf" />
       <menu id="sep" text="---------" owner="" nodetype="Leaf" />
       <menu id="Conditional_Compute,_if-then" text="Conditional Compute, if-then" commandtemplate="Conditional Compute, if-then.xaml" commandoutputformat="Conditional Compute, if-then.xml" owner="" nodetype="Leaf" />
