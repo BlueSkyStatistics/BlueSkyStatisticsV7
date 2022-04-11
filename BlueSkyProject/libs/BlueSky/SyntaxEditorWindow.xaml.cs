@@ -1876,6 +1876,17 @@ namespace BlueSky
             string subcomm = string.Empty, varname = string.Empty, BSkyLeftVar = string.Empty, headername = string.Empty;
             string firstparam = string.Empty, restparams = string.Empty, leftvarname = string.Empty;//23Sep2014
             string userpassedtitle = string.Empty;
+
+            //11Apr2022
+            string sinkfilename = confService.GetConfigValueForKey("tempsink");//23nov2012
+            string sinkfilefullpathname = Path.Combine(BSkyAppData.RoamingUserBSkyTempPath, sinkfilename);
+            // load default value if no path is set or invalid path is set
+            if (sinkfilefullpathname.Trim().Length == 0 || !IsValidFullPathFilename(sinkfilefullpathname, false))
+            {
+                MessageBox.Show(this, BSky.GlobalResources.Properties.Resources.tempsinkConfigKeyNotFound);
+                return; //return type was void before 22May2014
+            }
+
             //SplitBSkyFormat(stmt, out subcomm, out varname, out BSkyLeftVar);
             SplitBSkyFormatParams(stmt, out firstparam, out restparams, out userpassedtitle);//23Spe2014
             if (userpassedtitle.Trim().Length > 0)//user passed title has the highest priority
@@ -1923,14 +1934,14 @@ namespace BlueSky
 
                 /////25Feb2013 for writing errors in OutputWindow////
 
-                string sinkfilename = confService.GetConfigValueForKey("tempsink");//23nov2012
+                /* 11Apr2022 string sinkfilename = confService.GetConfigValueForKey("tempsink");//23nov2012
                 string sinkfilefullpathname = Path.Combine(BSkyAppData.RoamingUserBSkyTempPath, sinkfilename);
                 // load default value if no path is set or invalid path is set
                 if (sinkfilefullpathname.Trim().Length == 0 || !IsValidFullPathFilename(sinkfilefullpathname, false))
                 {
                     MessageBox.Show(this, BSky.GlobalResources.Properties.Resources.tempsinkConfigKeyNotFound);
                     return; //return type was void before 22May2014
-                }
+                }*/
                 OpenSinkFile(@sinkfilefullpathname, "wt"); //06sep2012
                 SetSink(); //06sep2012
 
@@ -2019,7 +2030,18 @@ namespace BlueSky
                 stmt = "bskyfrmtobj <- " + stmt;
                 objectname = "bskyfrmtobj";
                 cmd.CommandSyntax = stmt;// command 
+
+                OpenSinkFile(@sinkfilefullpathname, "wt"); //11Apr2022
+                SetSink(); //11Apr2022
+
                 o = analytics.ExecuteR(cmd, false, false);//executing BSkyFormat
+
+                ResetSink();
+                CloseSinkFile();
+                CreateOuput(ow);
+                if (true) return; //11Apr2022 we return as we do not process BSkyFormat() return object rather
+                //we go to the sink file to read markers and fetch table from the queue. Also get some
+                //text output from the sink file that was printed by BSkyFormat2.
 
                 ///Check if returned object is null
                 cmd.CommandSyntax = "is.null(" + objectname + ")";
