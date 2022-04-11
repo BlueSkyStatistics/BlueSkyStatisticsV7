@@ -60,6 +60,8 @@ namespace BSky.Database.Interface
             providers.Add("SQLite");
             providers.Add("MS-ACCESS");
             datasourceListBox.ItemsSource = providers;
+            datasourceListBox.SelectedIndex = 0;
+            datasourceListBox.Focus();
         }
 
         private void helpButton_Click(object sender, RoutedEventArgs e)
@@ -131,6 +133,7 @@ namespace BSky.Database.Interface
 
             string serverType = datasourceListBox.SelectedItem.ToString();
             string host = hostNametxt.Text;
+            bool winAuthentication = WinAuth.IsChecked == true ? true : false;
             string user = usertxt.Text;
             string pass = passwordBox1.Password;
             string databasename = null;
@@ -150,6 +153,10 @@ namespace BSky.Database.Interface
                 {
 
                 }
+                else if (serverType.Equals("MSSQL") && winAuthentication) //for MSSQL with Win-authentacation no user required.
+                {
+
+                }
                 else
                 {
                     sb.Append("\nUser:");
@@ -162,9 +169,14 @@ namespace BSky.Database.Interface
                 {
 
                 }
+                else if (serverType.Equals("MSSQL") && winAuthentication) //for MSSQL with Win-authentacation no pass required.
+                {
+
+                }
                 else
                 {
                     sb.Append("\nPassword (if it exists):");
+                    sb.Append("\nUser/Password not required when 'Windows Authentication' is checked for MSSQL Data Source:");
                 }
             }
             if (serverType == "PostgreSQL") // database is mandatory for Postgres
@@ -210,7 +222,7 @@ namespace BSky.Database.Interface
 
             if (serverType.Equals("MSSQL"))
             {
-
+                bool windowsAuthentication = (WinAuth.IsChecked == true) ? true : false;
                 string fixstring = "jdbc:sqlserver://";
                 
                 //Let user enter the server instance name in the configuration and use that value here
@@ -237,7 +249,15 @@ namespace BSky.Database.Interface
 
                 //string url = host;
                 //connStr = "'" + serverType + "', '" + url + "', '" + user + "', '" + pass + "', '" + dbname + "'";//for use in R DBI
-                connStr = "servertype='" + serverType + "', serveraddress='" + url + "', usr='" + user + "', pass='" + pass + "', mssqldrvjdbcpath='" + mssqljdbcdrvpath + "'";//for use in R DBI
+
+                if (windowsAuthentication)
+                {
+                    connStr = "servertype='" + serverType + "', serveraddress='" + url + "', mssqldrvjdbcpath='" + mssqljdbcdrvpath + "', windowsAuthentication=TRUE";//for use in R DBI
+                }
+                else
+                {
+                    connStr = "servertype='" + serverType + "', serveraddress='" + url + "', usr='" + user + "', pass='" + pass + "', mssqldrvjdbcpath='" + mssqljdbcdrvpath + "'";//for use in R DBI
+                }
             }
 
             return connStr;
@@ -272,12 +292,13 @@ namespace BSky.Database.Interface
             {
                 label2.Content = "Data Source Name:";
             }
+
             else
             {
                 label2.Content = "Host / Server:";
 
-                label5.Visibility = System.Windows.Visibility.Hidden;
-                databasetxt.Visibility = System.Windows.Visibility.Hidden;
+                label5.Visibility = System.Windows.Visibility.Collapsed;
+                databasetxt.Visibility = System.Windows.Visibility.Collapsed;
             }
 
             //if (serverType != null && serverType.Equals("MSSQL(Full)"))
@@ -290,6 +311,17 @@ namespace BSky.Database.Interface
             //}
             //else
             //    hostNametxt.Text = "";
+
+            if (serverType != null && serverType.Equals("MSSQL"))
+            {
+                label2a.Visibility = System.Windows.Visibility.Visible;
+                WinAuth.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                label2a.Visibility = System.Windows.Visibility.Collapsed;
+                WinAuth.Visibility = System.Windows.Visibility.Collapsed;
+            }
 
         }
 
@@ -322,9 +354,27 @@ namespace BSky.Database.Interface
             Mouse.OverrideCursor = null;
         }
 
+
         #endregion
 
+        private void WinAuth_Checked(object sender, RoutedEventArgs e)
+        {
+            label3.IsEnabled = false;
+            usertxt.IsEnabled = false;
 
+            label4.IsEnabled = false;
+            passwordBox1.IsEnabled = false;
+
+        }
+
+        private void WinAuth_Unchecked(object sender, RoutedEventArgs e)
+        {
+            label3.IsEnabled = true;
+            usertxt.IsEnabled = true;
+
+            label4.IsEnabled = true;
+            passwordBox1.IsEnabled = true;
+        }
     }
 
 }

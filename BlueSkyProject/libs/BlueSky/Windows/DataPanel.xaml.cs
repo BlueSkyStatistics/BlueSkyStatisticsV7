@@ -1134,7 +1134,7 @@ namespace BlueSky.Windows
                 List<string> lst = new List<string>();
                 // mSLdSLy, dSLmSLy, ySLmSLd, ySLdSLm, mDAdDAy, dDAmDAy, yDAmDAd, yDAdDAm
                 lst.Add("Not Applicable");
-                lst.Add("%m/%d/y");
+                lst.Add("%m/%d/%y");
                 lst.Add("%d/%m/%y");
                 lst.Add("%y/%m/%d");
                 lst.Add("%y/%d/%m");
@@ -1142,7 +1142,7 @@ namespace BlueSky.Windows
                 lst.Add("%d-%m-%y");
                 lst.Add("%y-%m-%d");
                 lst.Add("%y-%d-%m");
-                lst.Add("%m/%d/Y");
+                lst.Add("%m/%d/%Y");
                 lst.Add("%d/%m/%Y");
                 lst.Add("%Y/%m/%d");
                 lst.Add("%Y/%d/%m");
@@ -1151,7 +1151,7 @@ namespace BlueSky.Windows
                 lst.Add("%Y-%m-%d");
                 lst.Add("%Y-%d-%m");
 
-                lst.Add("%m/%d/y %H:%M:%S");
+                lst.Add("%m/%d/%y %H:%M:%S");
                 lst.Add("%d/%m/%y %H:%M:%S");
                 lst.Add("%y/%m/%d %H:%M:%S");
                 lst.Add("%y/%d/%m %H:%M:%S");
@@ -1159,7 +1159,7 @@ namespace BlueSky.Windows
                 lst.Add("%d-%m-%y %H:%M:%S");
                 lst.Add("%y-%m-%d %H:%M:%S");
                 lst.Add("%y-%d-%m %H:%M:%S");
-                lst.Add("%m/%d/Y %H:%M:%S");
+                lst.Add("%m/%d/%Y %H:%M:%S");
                 lst.Add("%d/%m/%Y %H:%M:%S");
                 lst.Add("%Y/%m/%d %H:%M:%S");
                 lst.Add("%Y/%d/%m %H:%M:%S");

@@ -498,7 +498,11 @@ namespace BlueSky
             string CapBoolStr = (isSciNotation) ? "TRUE" : "FALSE";
             //Call R function to set Scientific Notaion flag
             rcmd.CommandSyntax = "BSkySetEngNotationSetting( " + CapBoolStr + ")"; //Set Scientific Notation
-            retres = analytics.ExecuteR(rcmd, false, false); 
+            retres = analytics.ExecuteR(rcmd, false, false);
+
+            //11Apr2022
+            rcmd.CommandSyntax = "BSkySetKableAndRmarkdownFormatting(BSkyKableFormatting = FALSE, BSkyRmarkdownFormatting = FALSE, BSkyLaTeXFormatting = FALSE, BSkyTextFormatting = FALSE)"; //Set Kable 
+            retres = analytics.ExecuteR(rcmd, false, false);
         }
 
 #region Statusbar custom message (messages other than license info)

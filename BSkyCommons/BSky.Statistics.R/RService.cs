@@ -735,6 +735,7 @@ namespace BSky.Statistics.R
                                     col.InnerText = val.ToString();
                                 }
                             }
+                            CreateTableFooters(objectName, thisNode);
                             break;
 
                         case "String[,]":
@@ -776,6 +777,7 @@ namespace BSky.Statistics.R
                                     col.InnerText = sMatrix[rIndex, cIndex].ToString();
                                 }
                             }
+                            CreateTableFooters(objectName, thisNode);
                             break;
                         case "Object[,]":
 
@@ -804,6 +806,7 @@ namespace BSky.Statistics.R
                                     col.InnerText = oMatrix[rIndex, cIndex].ToString();
                                 }
                             }
+                            CreateTableFooters(objectName, thisNode);
                             break;
 
                         case "Int16":
@@ -902,6 +905,7 @@ namespace BSky.Statistics.R
                                     col.InnerText = iMatrix[rIndex, cIndex].ToString();
                                 }
                             }
+                            CreateTableFooters(objectName, thisNode);
                             break;
 
                         case "Object[]":
@@ -1309,6 +1313,59 @@ namespace BSky.Statistics.R
                 strrownames.InnerText = string.Join(",", strrowheaders);//Array to comma separated string
             thisNode.AppendChild(strcolnames);
             thisNode.AppendChild(strrownames);
+        }
+
+        private void CreateTableFooters(string objectName, XmlNode thisNode, string classtype = "")
+        {
+            //Creating row col headers if any present on R side object. 
+            string[] strfooters = null;
+            string[] strrowheaders = null;
+            int srdim = 1, scdim = 1;//array with at least 1 row 1 col
+
+            int arrlen = this._RServer.Evaluate("length(attr(" + objectName + ", 'BSkyFootnote_Combined'))").AsInteger()[0];
+            if (arrlen < 1)
+            { return; }
+            strfooters = new string[arrlen];
+            for (int k = 0; k < arrlen; k++)
+            {
+                strfooters[k] = this._RServer.Evaluate("attr(" + objectName + ", 'BSkyFootnote_Combined')[[" + (k + 1) + "]]").AsCharacter()[0];
+            }
+
+            /*            CharacterVector cv = this._RServer.Evaluate("attr(" + objectName + ", 'BSkyFootnote_Combined')").AsCharacter();
+                        CharacterVector cvsplit = this._RServer.Evaluate("attr(" + objectName + ", 'BSkyFootnote_Combined')$BSkyFootnote_BSkySplit").AsCharacter();
+                        //if (cv == null && cvsplit == null)
+                            //return;
+
+                        int siz = cv != null ? cv.Count() : 0;
+                        int siz2 = cvsplit != null ? cvsplit.Count() : 0;
+                        int finalsiz = siz + siz2;
+
+                        if (finalsiz == 0)
+                            return;
+                        strfooters = new string[finalsiz];
+                        int idx = 0;
+                        for (int ic = 0; ic < siz; ic++, idx++) //fill normal footer (signif code etc)
+                        {
+                            strfooters[idx] = cv[ic];
+                        }
+
+                        for (int ic = 0; ic < siz; ic++, idx++) // fill split realted footer
+                        {
+                            strfooters[idx] = cvsplit[ic];
+                        }*/
+
+            //28May2021 table footer
+            XmlElement strtablefooter = thisNode.OwnerDocument.CreateElement("tablefooter");
+            thisNode.AppendChild(strtablefooter);
+            XmlElement rows = strtablefooter.OwnerDocument.CreateElement("rows");
+            strtablefooter.AppendChild(rows);
+            for (long rIndex = 0; rIndex < strfooters.Length; rIndex++)
+            {
+                XmlNode row = rows.OwnerDocument.CreateElement("row");
+                rows.AppendChild(row);
+                row.InnerText = strfooters[rIndex];
+            }
+
         }
 
         public void ParseUASummary(XmlNode parent, string objectName)

@@ -682,8 +682,11 @@ namespace BSky.Controls
                     }
                     int current_cursor_postion = vTargetTextBox.SelectionStart;//05Mar2017
                     int len_before_trmming_last = vTargetTextBox.Text.Length;//05Mar2017
-
-                    vTargetTextBox.Text = vTargetTextBox.Text.Trim().TrimEnd('+');
+                    //Added by Aaron 06/03/2021
+                    //This removes the trailing space when using the move button to move a variable to a textbox
+                    //Original code is below, new code is below
+                    //vTargetTextBox.Text = vTargetTextBox.Text.Trim().TrimEnd('+')
+                    vTargetTextBox.Text = vTargetTextBox.Text.Trim().TrimEnd('+').Trim();
 
                     int len_after_trimming = vTargetTextBox.Text.Length;//05Mar2017
                     int diff_in_len = len_before_trmming_last - len_after_trimming;//05Mar2017

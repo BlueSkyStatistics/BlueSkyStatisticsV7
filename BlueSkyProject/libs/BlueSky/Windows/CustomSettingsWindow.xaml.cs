@@ -517,6 +517,41 @@ namespace BlueSky.Windows
                 object retres = analytics.ExecuteR(rcmd, false, false);
             }
 
+            //11Apr2022
+            #region  save show actual p-value and drop-astrisk 
+            bool isShowActualPValue = (showactualpvalue.IsChecked == true);
+            string showActualPValue = (isShowActualPValue) ? "FALSE" : "TRUE";
+            bool isHideAsterisk = (pvaluedropasterisk.IsChecked == true);
+            string hideAsterisk = (isHideAsterisk) ? "TRUE" : "FALSE";
+            CommandRequest rcmdpval = new CommandRequest();
+            //Call R function to set Scientific Notaion flag
+            rcmdpval.CommandSyntax = "BSkySetPvalueDisplaySetting(showActualPValueInOutput = " + showActualPValue + ", pvalueDropAsterisk =" + hideAsterisk + ")"; //Set p-value and asterisk setting
+            object retres1 = analytics.ExecuteR(rcmdpval, false, false);
+            #endregion
+
+            //11Apr2022
+            #region save anaysis output table related configurations
+            int maxtables;
+            string maxtblstr = maxtablesperanalysis.Text != null ? maxtablesperanalysis.Text : string.Empty;
+            bool success1 = Int32.TryParse(maxtblstr, out maxtables);
+            if (!success1) maxtables = 99;//default
+
+            int maxrows;
+            string maxrowsstr = maxrowspertable.Text != null ? maxrowspertable.Text : string.Empty;
+            bool success2 = Int32.TryParse(maxrowsstr, out maxrows);
+            if (!success2) maxrows = 2000;//default
+
+            int maxcols;
+            string maxcolsstr = maxcolspertable.Text != null ? maxcolspertable.Text : string.Empty;
+            bool success3 = Int32.TryParse(maxcolsstr, out maxcols);
+            if (!success3) maxcols = 99;//default
+
+            CommandRequest rcmdouttable = new CommandRequest();
+            //Call R function to set Scientific Notaion flag
+            rcmdouttable.CommandSyntax = "BSkySetTableDisplayLimits(maxOutputTables = " + maxtables + ", maxRowLimit = " + maxrows + ", maxColLimit = " + maxcols + ")"; //Set output table limits
+            object retres2 = analytics.ExecuteR(rcmdouttable, false, false);
+            #endregion
+
             //refresh graphic image size, if modified.
             if (hasGraphicImageSizeEdited)
             {
