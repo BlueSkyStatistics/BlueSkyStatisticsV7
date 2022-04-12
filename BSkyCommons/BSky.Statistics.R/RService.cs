@@ -945,7 +945,7 @@ namespace BSky.Statistics.R
                                     if (this._RServer.Evaluate(string.Format("!is.null(names({0}$tables)[[{1}]])", objectName, i)).AsLogical()[0])//01May2014
                                     {
                                         tableheader = this._RServer.Evaluate(string.Format("names({0}$tables)[[{1}]]", objectName, i)).AsCharacter()[0];
-                                        if (tableheader==null || tableheader.Equals("Split Headline")) tableheader = "";//no table for split title
+                                        if (tableheader==null || tableheader.Equals("Split Headline")) tableheader = "";//11Ape2022 no table for split title
                                     }
                                     if (objectcountintable > 1 && tablepropsnamesexists)
                                     {
