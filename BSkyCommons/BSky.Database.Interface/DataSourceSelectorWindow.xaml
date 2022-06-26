@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:uires="clr-namespace:BSky.GlobalResources.Properties;assembly=BSky.GlobalResources"
-             mc:Ignorable="d" 
-             MaxHeight="450" MinWidth="427" SizeToContent="WidthAndHeight" xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml" 
+             mc:Ignorable="d" Height="Auto"
+             MinWidth="427" SizeToContent="WidthAndHeight" xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml" 
              ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
         
         Title="{x:Static uires:UICtrlResources.DataSrcSelectorWinTitle}">
@@ -26,6 +26,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -34,14 +35,17 @@
                 <Label Grid.Row="0" Grid.Column="0" Content="{x:Static uires:UICtrlResources.lblSQLHostServer}"  Margin="3,5,3,3" Name="label2"  />
                 <TextBox Grid.Row="0"  Grid.Column="1" Margin="3" MaxHeight="23" Name="hostNametxt"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="{x:Static uires:UICtrlResources.lblSQLUserID}" Margin="3" Name="label3" />
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="3" MaxHeight="23" Name="usertxt"  />
+                <Label Grid.Row="1" Grid.Column="0" Content="Windows Authentication:" Margin="3" Name="label2a" />
+                <CheckBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Name="WinAuth" Checked="WinAuth_Checked" Unchecked="WinAuth_Unchecked" />
+                
+                <Label Grid.Row="2" Grid.Column="0" Content="{x:Static uires:UICtrlResources.lblSQLUserID}" Margin="3" Name="label3" />
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="3" MaxHeight="23" Name="usertxt"  />
 
-                <Label Grid.Row="2" Grid.Column="0" Content="{x:Static uires:UICtrlResources.lblSQLPassword}"  Margin="3" Name="label4" />
-                <PasswordBox Grid.Row="2" Grid.Column="1" Margin="3" MaxHeight="23" Name="passwordBox1" />
+                <Label Grid.Row="3" Grid.Column="0" Content="{x:Static uires:UICtrlResources.lblSQLPassword}"  Margin="3" Name="label4" />
+                <PasswordBox Grid.Row="3" Grid.Column="1" Margin="3" MaxHeight="23" Name="passwordBox1" />
 
-                <Label Grid.Row="3" Grid.Column="0" Content="{x:Static uires:UICtrlResources.lblSQLDatabaseName}" Margin="3" Name="label5" Visibility="Hidden"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Margin="3" MaxHeight="23" Name="databasetxt" Visibility="Hidden"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="{x:Static uires:UICtrlResources.lblSQLDatabaseName}" Margin="3" Name="label5" Visibility="Hidden"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="3" MaxHeight="23" Name="databasetxt" Visibility="Hidden"/>
 
             </Grid>
         </GroupBox>

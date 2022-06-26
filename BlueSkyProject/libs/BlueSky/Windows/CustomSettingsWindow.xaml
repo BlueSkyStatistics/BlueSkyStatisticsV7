@@ -6,7 +6,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:uires="clr-namespace:BSky.GlobalResources.Properties;assembly=BSky.GlobalResources"
-        Title="{x:Static uires:UICtrlResources.ConfigWindowTitle}" Height="370" MinWidth="750" MaxWidth="850" SizeToContent="Width" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        Title="{x:Static uires:UICtrlResources.ConfigWindowTitle}" Height="420" MinWidth="750" MaxWidth="850" SizeToContent="Width" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
         Closing="Window_Closing" >
 
     <!--<Window.Resources>
@@ -276,6 +276,9 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -291,11 +294,13 @@
                     <TextBlock Grid.Row="2" Grid.Column="0" MaxWidth="550" Text="{x:Static uires:UICtrlResources.lblShowActualPvalue}" Name="label5b"  Margin="3"  TextWrapping="Wrap"   />
                     <CheckBox Grid.Row="2" Grid.Column="1" Height="16"  Margin="3" Name="showactualpvalue" IsChecked="{Binding Path=[showActualPValueInOutput], UpdateSourceTrigger=PropertyChanged}"  />
 
+                    <TextBlock Grid.Row="3" Grid.Column="0" MaxWidth="550" Text="Hide asterisk (*) in p value column" Name="label5c"  Margin="3"  TextWrapping="Wrap"   />
+                    <CheckBox Grid.Row="3" Grid.Column="1" Height="16"  Margin="3" Name="pvaluedropasterisk" IsChecked="{Binding Path=[pvaluedropasterisk], UpdateSourceTrigger=PropertyChanged}"  />
                     <!--<TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static uires:UICtrlResources.lblMaxCharsNavTree}"  Margin="3" Name="label5"   />
                     <TextBox Grid.Row="2" Grid.Column="1"   Text="{Binding Path=[nooftreechars], UpdateSourceTrigger=PropertyChanged}" Margin="3" Name="noofchars" />-->
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static uires:UICtrlResources.lblLoadMissing}"   Margin="3" Name="label6"   />
-                    <CheckBox Grid.Row="3" Grid.Column="1"  Height="16"  Margin="3" Name="loadMissingCheckbox" IsChecked="{Binding Path=[loadSavMissingValue], UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{x:Static uires:UICtrlResources.lblLoadMissing}"   Margin="3" Name="label6"   />
+                    <CheckBox Grid.Row="4" Grid.Column="1"  Height="16"  Margin="3" Name="loadMissingCheckbox" IsChecked="{Binding Path=[loadSavMissingValue], UpdateSourceTrigger=PropertyChanged}" />
 
                     <!--<TextBlock Grid.Row="4" Grid.Column="0" Text="{x:Static uires:UICtrlResources.lblOpenOptions}" IsEnabled="False" Margin="3" Name="label7"  />
                     <CheckBox Grid.Row="4" Grid.Column="1" Height="16"  Margin="3" Name="openDatasetOptionChkbx" IsEnabled="False" IsChecked="{Binding Path=[openDatasetOption], UpdateSourceTrigger=PropertyChanged}"  />-->
@@ -315,6 +320,14 @@
                     <TextBlock Grid.Row="9" Grid.Column="0"  Margin="3" MaxWidth="550"  TextWrapping="Wrap" Text="{x:Static uires:UICtrlResources.lblThresholdCount}" />
                     <TextBox Grid.Row="9" Grid.Column="1"  Margin="3" VerticalAlignment="top" Name="maxflexgridcells" Text="{Binding Path=[maxflexgridcells], UpdateSourceTrigger=PropertyChanged}"/>
 
+                    <TextBlock Grid.Row="10" Grid.Column="0"  Margin="3" MaxWidth="550"  TextWrapping="Wrap" Text="Maximum output tables per analysis" />
+                    <TextBox Grid.Row="10" Grid.Column="1"  Margin="3" VerticalAlignment="top" Name="maxtablesperanalysis" Text="{Binding Path=[maxtablesperanalysis], UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Row="11" Grid.Column="0"  Margin="3" MaxWidth="550"  TextWrapping="Wrap" Text="Maximum rows per output table" />
+                    <TextBox Grid.Row="11" Grid.Column="1"  Margin="3" VerticalAlignment="top" Name="maxrowspertable" Text="{Binding Path=[maxrowspertable], UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Row="12" Grid.Column="0"  Margin="3" MaxWidth="550"  TextWrapping="Wrap" Text="Maximum columns per output table" />
+                    <TextBox Grid.Row="12" Grid.Column="1"  Margin="3" VerticalAlignment="top" Name="maxcolspertable" Text="{Binding Path=[maxcolspertable], UpdateSourceTrigger=PropertyChanged}"/>                    
                 </Grid>
 
             </TabItem>

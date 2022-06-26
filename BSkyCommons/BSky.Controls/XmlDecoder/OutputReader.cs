@@ -56,7 +56,8 @@ namespace BSky.XmlDecoder
             {
                 if (filename != null && filename.Length > 0)//&& File.Exists(filename)
                 {
-                    if (File.Exists(filename))
+                    //11Apr2022 //no more templated dialogs (File.Exists(filename))
+                    if(false) // (File.Exists(filename))
                     {
                         doc.Load(filename); //loads output template .xml file if exists else goes to catch
                         if (AdvancedLogging) logService.WriteToLogLevel("ExtraLogs: Output Xml template file:" + filename, LogLevelEnum.Info);
@@ -102,7 +103,7 @@ namespace BSky.XmlDecoder
                 return lst;
             }
 
-            if (XMLexists)
+            if (XMLexists)//11Apr2022 this should not execute anymore. BSkyformat will handle templated dialogs
             {
                 if (AdvancedLogging) logService.WriteToLogLevel("ExtraLogs: XML exists:", LogLevelEnum.Info);
                 //Initialize the data model for output file.
@@ -222,6 +223,7 @@ namespace BSky.XmlDecoder
             return lst;
         }
 
+        //11Apr2022 this should not execute anymore. BSkyformat will handle templated dialogs
         /// <summary>
         /// Creates split iterations
         /// </summary>
@@ -511,6 +513,15 @@ namespace BSky.XmlDecoder
                 xgrid.FootNotes = fs;//footer
             }
 
+            #region Getting new footers //28May2021
+            string allFooters = string.Empty;
+            string[] footerArr = OutputHelper.GetTableFooters(datanumber);
+            if (footerArr != null)
+            {
+                allFooters = "Note:\n" + string.Join("\n", footerArr);
+            }
+            xgrid.starText.Text = allFooters;
+            #endregion
 
             ///// Logic to remove extra rows from ourput grid, using metadata-2 /// for crosstab only right now ///
             bool isCrosstab = false;
@@ -622,7 +633,7 @@ namespace BSky.XmlDecoder
             List<int> starColindexes = new List<int>();
 
             List<ColSignifCodes> sigcodlist = SignificanceCodesHandler.SigCodeList;//list of cols each having its significance codes
-            List<string> allsigColNames = SignificanceCodesHandler.GetAllSignifColNames();
+            List<string> allsigColNames = new List<string>();//11Apr2022 SignificanceCodesHandler.GetAllSignifColNames();
             ColSignifCodes csc = null;
             if (sigcodlist != null)
             {
@@ -647,7 +658,7 @@ namespace BSky.XmlDecoder
                             //if you need diff codes for diff colNames than you may have to add more lines like below 
                             //for each colName that was found in the col-header.
                             //Plus you need to pick 'csc' above for matching colName not 0 index
-                            xgrid.starText.Text = csc.getFooterStarMessage();
+                            //11Apr2022 xgrid.starText.Text = csc.getFooterStarMessage();
 
                             //Since in multi-row ColHeaders the matching colName can be found in any cell of 
                             //ColHeaderMatrix so we need to look the whole ColHeaderMatrix.
@@ -678,6 +689,7 @@ namespace BSky.XmlDecoder
                             {
                                 if (matrix[i, j] != "NA")
                                 {
+                                    /* 11Apr2022
                                     if (starColindexes.Count > 0 && starColindexes.Contains(j) && csc!=null)//if there is a col to which stars should be added then run code inside 'if'
                                     {
 										//get number of stars from data
@@ -695,8 +707,8 @@ namespace BSky.XmlDecoder
                                             if (celldata < .001)//if cell data is '< .0001', we don't print it rather
                                                 matrix[i, j] = string.Empty;//we print modified stars msg (<.001***). Bob asked for this.
                                         }
-                                    }
-                                    grid[i, j] = matrix[i, j] + " " + stars;
+                                    } */
+                                    grid[i, j] = matrix[i, j];//11Apr2022 dont add stars, matrix[i, j] + " " + stars;
                                 }
                                 else
                                 {
@@ -1458,7 +1470,7 @@ namespace BSky.XmlDecoder
                     ColSignifCodes csc=null;
                     if(sigcodlist!=null)
                     {
-                       List<string> allsigColNames = SignificanceCodesHandler.GetAllSignifColNames();
+                       List<string> allsigColNames = new List<string>();//11Apr2022 SignificanceCodesHandler.GetAllSignifColNames();
                         int Cidx = 0;
                         foreach (string s in colHeaders) //getting all col indexes where signif code is to be applied.
                         {
@@ -1506,7 +1518,7 @@ namespace BSky.XmlDecoder
                         }
                     }
 
-                    if (starColindexes.Count > 0)//found index of col in colHeaders to which signif codes should be applied.
+                    if(true)//11Apr2022 (starColindexes.Count > 0)//found index of col in colHeaders to which signif codes should be applied.
                     {
                         //right now first index is picked. So, we are not looking for codes based on colName beacuse they all are same for all colNames.
                         csc = sigcodlist[0];
@@ -1515,7 +1527,13 @@ namespace BSky.XmlDecoder
                         //if you need diff codes for diff colNames than you may have to add more lines like below 
                         //for each colName that was found in the col-header.
                         //Plus you need to pick 'csc' above for matching colName not 0 index
-                        xgrid.starText.Text = csc.getFooterStarMessage();
+                        string allFooters = string.Empty;
+                        string[] footerArr = OutputHelper.GetTableFooters(tno);
+                        if (footerArr != null)
+                        {
+                            allFooters = "Note:\n" + string.Join("\n", footerArr);
+                        }
+                        xgrid.starText.Text = allFooters;//11Apr2022 csc.getFooterStarMessage();
 
                         //Since in multi-row ColHeaders the matching colName can be found in any cell of 
                         //ColHeaderMatrix so we need to look the whole ColHeaderMatrix.
@@ -1531,6 +1549,7 @@ namespace BSky.XmlDecoder
                         for (int c = 0; c < datamatrix.GetLength(1); c++)
                         {
                             stars = string.Empty;
+                            /* //11Apr2022
                             if (starColindexes.Count > 0 && starColindexes.Contains(c) && csc != null)//star col and calculating star count
                             {
                                 //get data first
@@ -1538,10 +1557,11 @@ namespace BSky.XmlDecoder
                                 {
                                     stars = csc.getStarChars(celldata);
                                 }
-                            }
+                            }*/
 
                             if (datamatrix[rw, c] != null && datamatrix[rw, c].Trim().Length > 0)
                             {
+                                /* //11Apr2022
                                 if (stars.Trim().Equals("***"))
                                 {
                                     if (!GetConfig_for_ShowActualValueInOutput())
@@ -1550,8 +1570,8 @@ namespace BSky.XmlDecoder
                                         if (celldata < .001)//if cell data is '< .0001', we don't print it rather
                                             datamatrix[rw, c] = string.Empty;//we print modified stars msg (<.001***). Bob asked for this.
                                     }
-                                }
-                                c1FlexGrid1[rw, c] = datamatrix[rw, c]+" "+stars;
+                                }*/
+                                c1FlexGrid1[rw, c] = datamatrix[rw, c]; //11Apr2022 datamatrix[rw, c]+" "+stars;
                                 isemptyrow = false;// if it has atleast one column filled then row is not empty
                             }
                         }

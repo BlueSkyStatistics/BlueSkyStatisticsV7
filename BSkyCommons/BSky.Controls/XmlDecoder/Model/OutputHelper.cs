@@ -10425,6 +10425,33 @@ namespace BSky.XmlDecoder
             return uasummary;
         }
 
+        public static string[] GetTableFooters(int datanumber)
+        {
+            //string[,] matrix = new string[1, 5];
+            //matrix[0, 0] = "Foot notes from code";
+            //return matrix;
+            XmlDocument doc = AnalyticsData.Result.Data;
+            string[] footerarr = null;
+            XmlNode metadata = doc.SelectSingleNode(string.Format("/Root/UATableList/UADoubleMatrix[{0}]/tablefooter/rows", datanumber));
+
+            if (metadata == null)
+            {
+                return footerarr;
+            }
+            else
+            {
+                int rows = metadata.ChildNodes.Count;
+                footerarr = new string[rows];
+                for (int i = 0; i < rows; ++i)
+                {
+                    XmlNode tempm = metadata.ChildNodes[i];
+                    footerarr[i] = tempm.InnerText;
+                }
+            }
+            return footerarr;
+        }
+
+
         public static int FlexGridMaxCells;
         //public static int FlexGridMaxRows;
         //public static int FlexGridMaxCols;
@@ -11055,6 +11082,9 @@ namespace BSky.XmlDecoder
         //23Aug2013 For stat results. like row col header if needed add one more param for table title.
         public static object GetBSkyStatResults(int datanumber, out string restype, out string[] colHeaders, out string[] rowHeaders, out string slicename)
         {
+            string[] footerArr = GetTableFooters(datanumber);
+            if (footerArr != null)
+            { }
             restype = "";
             colHeaders = null; // It is difficult to set headers .As headers are not stored in DOM. They are in template XML
             rowHeaders = null; // And we are assuming that this code will run when XML is absent. Well if you need headers then that must be stored somewhere in stat result table ($datatable)

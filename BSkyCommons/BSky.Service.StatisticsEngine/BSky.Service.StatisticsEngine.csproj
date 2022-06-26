@@ -60,12 +60,10 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BSky.ConfigService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="BSky.ConfigService">
       <HintPath>..\..\BSkyDll\BSky.ConfigService.dll</HintPath>
     </Reference>
-    <Reference Include="BSky.ConfService.Intf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="BSky.ConfService.Intf">
       <HintPath>..\..\BSkyDll\BSky.ConfService.Intf.dll</HintPath>
     </Reference>
     <Reference Include="DynamicInterop">

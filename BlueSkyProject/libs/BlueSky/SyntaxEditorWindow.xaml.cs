@@ -346,7 +346,7 @@ namespace BlueSky
                     lst.SelectedForDump = true;
 
                 ////17Nov2017 for opening a flat file that has ; as a field separator. this field separator is not for line termination in R syntax.
-                commands = commands.Replace("\";\"", "'BSkySemiColon'").Replace("';'", "'BSkySemiColon'");
+                commands = commands.Replace("\";\"", "\"BSkySemiColon\"").Replace("';'", "'BSkySemiColon'"); //fix for reload from disk, mainly
 
                 ////03Oct2014 We should remove R comments right here, before proceeding with execution.
                 string nocommentscommands = RemoveCommentsFromCommands(commands);
@@ -774,8 +774,7 @@ namespace BlueSky
                     }
                 }
                 //17Nov2017 Putting back the semicolon in place of BSkySemiColon
-                stmt = stmt.Replace("'BSkySemiColon'", "';'");
-
+                stmt = stmt.Replace("'BSkySemiColon'", "';'").Replace("\"BSkySemiColon\"", "\";\"");
                 if (AdvancedLogging) logService.WriteToLogLevel("ExtraLogs: Syntax command category : " + rct.ToString(), LogLevelEnum.Info);
 
                 stmt = stmt.Trim().Replace("\"$$", "\"#");
@@ -796,6 +795,7 @@ namespace BlueSky
                             else
                             {
                                 string originalFormatSyn2 = seltext.Substring(start, end).Replace(';', '\n');
+                                originalFormatSyn2 = originalFormatSyn2.Replace("'BSkySemiColon'", "';'").Replace("\"BSkySemiColon\"", "\";\"");
                                 SendCommandToOutput(originalFormatSyn2, "R-Command");
                                 ExecuteOtherCommand(ow, stmt);
                             }
@@ -836,6 +836,7 @@ namespace BlueSky
                             CreateOuput(ow);
                             SendCommandToOutput(stmt, "BSkyFormat");//26Aug2014 blue colored
                             ExecuteBSkyFormatCommand(stmt, ref bskyfrmtobjcount, ow);
+                            restBSkyFormat();
                             OpenSinkFile(@sinkfilefullpathname, "wt");
                             SetSink();
                             break;
@@ -877,7 +878,7 @@ namespace BlueSky
                             SendCommandToOutput(originalFormatSyn, "R-Command");
 
                             if (AdvancedLogging) logService.WriteToLogLevel("ExtraLogs: Categorized. Before execution.", LogLevelEnum.Info);
-
+                            stmt = stmt.Replace("'BSkySemiColon'", "';'").Replace("\"BSkySemiColon\"", "\";\"");
                             ExecuteOtherCommand(ow, stmt);
 
                             if (AdvancedLogging) logService.WriteToLogLevel("ExtraLogs: Categorized. After execution.", LogLevelEnum.Info);
@@ -1844,6 +1845,15 @@ namespace BlueSky
             }
         }
 
+        //BSkyFormat residue cleanup
+        private void restBSkyFormat()
+        {
+            CommandRequest cmd = new CommandRequest();
+            cmd.CommandSyntax = "BSkyQueue = BSkyGetHoldFormatObjList(bSkyCompatibility = 1)";
+            object returnobj = analytics.ExecuteR(cmd, true, false);
+
+        }
+
         private void ExecuteBSkyFormatCommand(string stmt, ref int bskyfrmtobjcount, OutputWindow ow)
         {
             KillTempBSkyFormatObj("bskytempvarname");
@@ -1866,6 +1876,17 @@ namespace BlueSky
             string subcomm = string.Empty, varname = string.Empty, BSkyLeftVar = string.Empty, headername = string.Empty;
             string firstparam = string.Empty, restparams = string.Empty, leftvarname = string.Empty;//23Sep2014
             string userpassedtitle = string.Empty;
+
+            //11Apr2022
+            string sinkfilename = confService.GetConfigValueForKey("tempsink");//23nov2012
+            string sinkfilefullpathname = Path.Combine(BSkyAppData.RoamingUserBSkyTempPath, sinkfilename);
+            // load default value if no path is set or invalid path is set
+            if (sinkfilefullpathname.Trim().Length == 0 || !IsValidFullPathFilename(sinkfilefullpathname, false))
+            {
+                MessageBox.Show(this, BSky.GlobalResources.Properties.Resources.tempsinkConfigKeyNotFound);
+                return; //return type was void before 22May2014
+            }
+
             //SplitBSkyFormat(stmt, out subcomm, out varname, out BSkyLeftVar);
             SplitBSkyFormatParams(stmt, out firstparam, out restparams, out userpassedtitle);//23Spe2014
             if (userpassedtitle.Trim().Length > 0)//user passed title has the highest priority
@@ -1913,14 +1934,14 @@ namespace BlueSky
 
                 /////25Feb2013 for writing errors in OutputWindow////
 
-                string sinkfilename = confService.GetConfigValueForKey("tempsink");//23nov2012
+                /* 11Apr2022 string sinkfilename = confService.GetConfigValueForKey("tempsink");//23nov2012
                 string sinkfilefullpathname = Path.Combine(BSkyAppData.RoamingUserBSkyTempPath, sinkfilename);
                 // load default value if no path is set or invalid path is set
                 if (sinkfilefullpathname.Trim().Length == 0 || !IsValidFullPathFilename(sinkfilefullpathname, false))
                 {
                     MessageBox.Show(this, BSky.GlobalResources.Properties.Resources.tempsinkConfigKeyNotFound);
                     return; //return type was void before 22May2014
-                }
+                }*/
                 OpenSinkFile(@sinkfilefullpathname, "wt"); //06sep2012
                 SetSink(); //06sep2012
 
@@ -2009,7 +2030,18 @@ namespace BlueSky
                 stmt = "bskyfrmtobj <- " + stmt;
                 objectname = "bskyfrmtobj";
                 cmd.CommandSyntax = stmt;// command 
+
+                OpenSinkFile(@sinkfilefullpathname, "wt"); //11Apr2022
+                SetSink(); //11Apr2022
+
                 o = analytics.ExecuteR(cmd, false, false);//executing BSkyFormat
+
+                ResetSink();
+                CloseSinkFile();
+                CreateOuput(ow);
+                if (true) return; //11Apr2022 we return as we do not process BSkyFormat() return object rather
+                //we go to the sink file to read markers and fetch table from the queue. Also get some
+                //text output from the sink file that was printed by BSkyFormat2.
 
                 ///Check if returned object is null
                 cmd.CommandSyntax = "is.null(" + objectname + ")";

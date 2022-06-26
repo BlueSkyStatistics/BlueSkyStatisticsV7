@@ -374,7 +374,7 @@ namespace BSky.Database.Interface
             }
             else
             {
-                command = "GetSQLTableColumns(" + ConnectionString + ", databasename ='" + SelectedDatabase + "', '" + tableOrViewName + "')";
+                command = "GetSQLTableColumns(" + ConnectionString + ", databasename ='" + SelectedDatabase + "', tablename ='" + tableOrViewName + "')";
             }
             ////UAReturn uaret = service.ImportTableListFromSQL(command);
 

@@ -1520,4 +1520,4 @@ HelpText1.Text +=  "\nUsage:var2 =str_pad(string =var1, width=10, side =\"left\"
 
 
     }
-}
+}   

@@ -148,7 +148,7 @@ namespace BlueSky
             {
                 if (AdvancedLogging) logService.WriteToLogLevel("ExtraLogs: dialog xaml:" + TemplateFileName, LogLevelEnum.Info);
 
-                if (System.IO.File.Exists(TemplateFileName))
+                if (false)//11Apr2022 (System.IO.File.Exists(TemplateFileName))
                 {
                     //here TemplateFileName xaml will have same name as the analysis command function name
                     // say- function called frm SynEdtr was 'bsky.my.func()' then in bin\Config\ 
