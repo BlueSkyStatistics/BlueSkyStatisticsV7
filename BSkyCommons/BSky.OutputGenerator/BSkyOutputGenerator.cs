@@ -16,6 +16,7 @@ using System;
 using BSky.Lifetime;
 using BSky.Lifetime.Interfaces;
 using BSky.ConfService.Intf.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.OutputGenerator
 {
