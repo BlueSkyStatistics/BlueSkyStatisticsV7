@@ -8,6 +8,7 @@ using BSky.Statistics.Service.Engine.Interfaces;
 using BSky.Lifetime;
 using BSky.Lifetime.Interfaces;
 using RDotNet;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Service.Engine
 {
