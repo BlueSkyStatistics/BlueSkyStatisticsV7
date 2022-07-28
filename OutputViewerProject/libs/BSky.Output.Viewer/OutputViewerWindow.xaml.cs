@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using BSky.ConfService.Intf.Interfaces;
 using System.Globalization;
 using System.Windows.Input;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Output.Viewer
 {
