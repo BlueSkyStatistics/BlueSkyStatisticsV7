@@ -2,7 +2,7 @@
 SPSS Equivalent for the Open Source R Project.
 The code is organized into the following projects.
 We have the following dependent libraries.
-- ComponentOne 4.0.20162.524
+- ComponentOne WPF controls 4.0.20162.524
 - Cquential.Microsoft.Practices.Unity (2.0.414)
 - DynamicInterop (0.9.1)
 - log4net (2.0.14)
