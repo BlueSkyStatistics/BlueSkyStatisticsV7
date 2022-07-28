@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using BSky.ConfService.Intf.Interfaces;
 using System.ComponentModel;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Statistics.Common
 {

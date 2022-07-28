@@ -4,7 +4,7 @@ using System.IO;
 using BSky.Lifetime;
 using BSky.Lifetime.Interfaces;
 using System.Collections.Generic;
-
+using Microsoft.Practices.Unity;
 
 namespace BSky.Statistics.Common
 {
