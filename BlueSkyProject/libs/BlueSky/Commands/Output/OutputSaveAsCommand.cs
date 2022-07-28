@@ -9,6 +9,8 @@ using BSky.Lifetime.Interfaces;
 using System.Drawing;
 using System.IO;
 using BSky.Interfaces.Services;
+using Microsoft.Practices.Unity;
+
 namespace BlueSky.Commands.Output
 {
     public class OutputSaveAsCommand : BSkyCommandBase

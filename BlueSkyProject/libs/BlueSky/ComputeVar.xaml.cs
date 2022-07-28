@@ -4,6 +4,7 @@ using BSky.Statistics.Common;
 using BSky.Lifetime;
 using System.Collections.ObjectModel;
 using BSky.Interfaces.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky
 {

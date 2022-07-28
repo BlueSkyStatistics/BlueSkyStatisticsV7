@@ -15,6 +15,7 @@ using BSky.Statistics.Service.Engine.Interfaces;
 using System.Windows.Data;
 using BSky.ConfService.Intf.Interfaces;
 using BSky.Lifetime.Services;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Windows
 {

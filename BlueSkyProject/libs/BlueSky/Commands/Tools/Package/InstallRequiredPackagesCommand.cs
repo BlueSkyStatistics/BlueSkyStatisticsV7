@@ -10,6 +10,7 @@ using System.Windows;
 using System.IO;
 using BSky.Statistics.Common;
 using System.Windows.Input;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Tools.Package
 {

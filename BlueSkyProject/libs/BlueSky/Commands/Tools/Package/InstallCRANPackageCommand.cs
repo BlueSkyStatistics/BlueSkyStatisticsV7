@@ -5,7 +5,7 @@ using BSky.Lifetime.Interfaces;
 using BSky.Statistics.Common;
 using BlueSky.CommandBase;
 using System.Windows.Input;
-
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Tools.Package
 {

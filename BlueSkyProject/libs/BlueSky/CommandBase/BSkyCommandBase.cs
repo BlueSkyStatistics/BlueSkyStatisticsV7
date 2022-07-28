@@ -1,6 +1,7 @@
 ﻿using BSky.Interfaces.Commands;
 using BSky.Lifetime;
 using BSky.Interfaces.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.CommandBase
 {

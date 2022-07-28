@@ -1,6 +1,6 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"  x:Class="BlueSky.OutputWindow"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:scintilla="clr-namespace:ScintillaNET;assembly=ScintillaNET"
+        xmlns:scintilla="clr-namespace:ScintillaNET;assembly=Scintilla.NET"
         xmlns:uires="clr-namespace:BSky.GlobalResources.Properties;assembly=BSky.GlobalResources"
         Title="BlueSky Output and Syntax window" Name="outwin" 
         SizeChanged="outwin_SizeChanged"

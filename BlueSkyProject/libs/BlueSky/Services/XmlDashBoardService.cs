@@ -12,6 +12,7 @@ using System.IO;
 using System.Windows;
 using BSky.Interfaces.Services;
 using System.Threading;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Services
 {

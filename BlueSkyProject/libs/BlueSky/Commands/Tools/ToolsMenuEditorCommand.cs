@@ -6,6 +6,7 @@ using BSky.Lifetime.Interfaces;
 using BSky.Controls;
 using BlueSky.CommandBase;
 using System.Threading;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Tools
 {

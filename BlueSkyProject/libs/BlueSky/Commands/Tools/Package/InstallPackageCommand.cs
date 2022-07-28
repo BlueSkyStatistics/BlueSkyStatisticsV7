@@ -5,6 +5,7 @@ using BSky.Lifetime.Interfaces;
 using Microsoft.Win32;
 using BSky.Statistics.Common;
 using BlueSky.CommandBase;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Tools.Package
 {

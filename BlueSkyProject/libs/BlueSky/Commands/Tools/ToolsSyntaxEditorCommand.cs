@@ -2,6 +2,7 @@
 using System.Windows;
 using BSky.Lifetime;
 using BlueSky.CommandBase;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Tools
 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using BSky.Lifetime;
 using BSky.Interfaces.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky
 {

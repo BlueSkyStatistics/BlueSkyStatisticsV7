@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using BSky.Statistics.Common;
 using BSky.Statistics.Service.Engine.Interfaces;
 using BSky.Lifetime;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Windows
 {

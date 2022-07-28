@@ -10,6 +10,8 @@ using System.Windows;
 using System.IO;
 using BSky.Statistics.Common;
 using System.Windows.Input;
+using Microsoft.Practices.Unity;
+
 namespace BlueSky.Commands.Tools.Package
 {
     //Installs required packages from CRAN. XML file is maintains a list of packages

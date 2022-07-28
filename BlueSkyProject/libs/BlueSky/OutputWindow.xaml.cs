@@ -41,6 +41,7 @@ using System.Windows.Input;
 using BSky.ConfService.Intf.Interfaces;
 using System.Windows.Data;
 using BSky.Lifetime.Services;
+using Microsoft.Practices.Unity;
 
 //using System.Windows.Forms;
 

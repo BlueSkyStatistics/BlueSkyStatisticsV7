@@ -1,5 +1,6 @@
 ﻿using BSky.Lifetime;
 using BlueSky.CommandBase;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.File
 {

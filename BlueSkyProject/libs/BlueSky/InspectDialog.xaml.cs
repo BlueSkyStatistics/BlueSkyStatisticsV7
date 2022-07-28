@@ -6,10 +6,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms.Integration;
 using BSky.Lifetime;
-
-
+using Microsoft.Practices.Unity;
 using BSky.Controls;
-
 using BSky.Interfaces.Interfaces;
 
 

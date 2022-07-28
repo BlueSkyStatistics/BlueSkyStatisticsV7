@@ -6,7 +6,7 @@ using BSky.Statistics.Common;
 using BlueSky.CommandBase;
 using System.Text;
 using System.Collections.Generic;
-
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Tools.Package
 {

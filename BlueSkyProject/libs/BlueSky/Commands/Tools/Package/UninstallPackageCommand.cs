@@ -7,6 +7,7 @@ using BSky.Statistics.Common;
 using BlueSky.CommandBase;
 using BlueSky.Commands.Tools.Package.Dialogs;
 using System.Collections.Generic;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Tools.Package
 {

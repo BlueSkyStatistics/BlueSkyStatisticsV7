@@ -12,6 +12,7 @@ using System.Text;
 using System.IO;
 using System.Windows;
 using System.Text.RegularExpressions;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Services
 {

@@ -8,6 +8,7 @@ using System.Windows.Input;
 using BSky.RecentFileHandler;
 using BlueSky.Commands.Analytics.TTest;
 using BSky.ConfService.Intf.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Data
 {

@@ -6,6 +6,7 @@ using BSky.Lifetime;
 using BlueSky.CommandBase;
 using BSky.Interfaces.Interfaces;
 using BSky.Interfaces.Services;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Output
 {

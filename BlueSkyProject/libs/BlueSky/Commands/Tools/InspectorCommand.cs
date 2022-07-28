@@ -11,6 +11,7 @@ using System.Windows.Markup;
 using System.IO;
 using BSky.Statistics.Common;
 using System.Collections.Generic;
+using Microsoft.Practices.Unity;
 
 namespace BlueSky.Commands.Tools
 {
