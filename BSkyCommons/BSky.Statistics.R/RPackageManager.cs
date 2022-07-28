@@ -8,6 +8,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System;
 using BSky.ConfService.Intf.Interfaces;
 using BSky.Lifetime.Services;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Statistics.R
 {

@@ -4,6 +4,7 @@ using System.IO;
 using BSky.Lifetime.Interfaces;
 using BSky.Lifetime;
 using BSky.ConfService.Intf.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Statistics.R
 {

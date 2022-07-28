@@ -15,6 +15,7 @@ using System.Diagnostics;
 using BSky.Lifetime.Services;
 using BSky.ConfigService.Services;
 using BSky.ConfService.Intf.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Statistics.R
 {
