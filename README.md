@@ -1,6 +1,6 @@
 # BlueSkyStatisticsRepository
 SPSS Equivalent for the Open Source R Project.
-The code is organized into the following projects.
+The code is organized into the multiple projects.
 We have the following dependent libraries.
 - ComponentOne WPF controls 4.0.20162.524
 - Cquential.Microsoft.Practices.Unity (2.0.414)
