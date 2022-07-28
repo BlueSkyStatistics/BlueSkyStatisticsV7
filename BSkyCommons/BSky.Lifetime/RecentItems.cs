@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using BSky.Lifetime.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Lifetime
 {
