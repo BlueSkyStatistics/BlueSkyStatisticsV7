@@ -14,6 +14,7 @@ using System.Windows.Controls.Primitives;
 using System.Linq;
 using BSky.Interfaces.Interfaces;
 using BSky.Lifetime;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Controls
 {

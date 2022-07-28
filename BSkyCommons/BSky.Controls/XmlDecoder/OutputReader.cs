@@ -19,6 +19,7 @@ using BSky.Lifetime.Services;
 using BSky.Controls.XmlDecoder;
 using BSky.ConfService.Intf.Interfaces;
 using BSky.ConfigService.Services;
+using Microsoft.Practices.Unity;
 
 namespace BSky.XmlDecoder
 {

@@ -21,6 +21,7 @@ using BSky.Statistics.Common;
 using BSky.Interfaces.Services;
 using BSky.Interfaces.DashBoard;
 using BSky.Lifetime.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Controls
 {

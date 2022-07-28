@@ -18,6 +18,7 @@ using BSky.Interfaces.Interfaces;
 using Microsoft.Win32;
 using BSky.ConfService.Intf.Interfaces;
 using BSky.ConfigService.Services;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Controls
 {

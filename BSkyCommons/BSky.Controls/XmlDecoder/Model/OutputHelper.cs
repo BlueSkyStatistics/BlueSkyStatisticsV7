@@ -15,6 +15,7 @@ using System.Windows.Input;
 using BSky.ConfService.Intf.Interfaces;
 using BSky.Lifetime;
 using BSky.Interfaces.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.XmlDecoder
 {

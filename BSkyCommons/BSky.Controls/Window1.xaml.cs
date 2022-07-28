@@ -21,6 +21,7 @@ using BSky.Lifetime;
 using BSky.RecentFileHandler;
 using BSky.Controls.DesignerSupport;
 using BSky.ConfService.Intf.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Controls
 {

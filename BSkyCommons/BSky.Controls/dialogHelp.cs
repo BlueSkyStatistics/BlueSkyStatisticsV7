@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using BSky.Lifetime.Interfaces;
 using BSky.Lifetime;
 using BSky.ConfService.Intf.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Controls
 {

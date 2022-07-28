@@ -19,7 +19,7 @@ using System.Collections.ObjectModel;
 using BSky.Interfaces.Interfaces;
 using BSky.Lifetime;
 using BSky.Statistics.Common;
-
+using Microsoft.Practices.Unity;
 
 namespace BSky.Controls
 {

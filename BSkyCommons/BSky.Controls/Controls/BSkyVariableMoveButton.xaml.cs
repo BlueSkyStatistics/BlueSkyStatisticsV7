@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Linq;
 using BSky.Interfaces.Interfaces;
 using BSky.Lifetime;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Controls
 {

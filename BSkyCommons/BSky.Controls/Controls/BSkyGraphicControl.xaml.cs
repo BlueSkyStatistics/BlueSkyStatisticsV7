@@ -12,6 +12,7 @@ using BSky.Lifetime;
 using BSky.Lifetime.Interfaces;
 using System.Globalization;
 using BSky.ConfService.Intf.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Controls.Controls
 {

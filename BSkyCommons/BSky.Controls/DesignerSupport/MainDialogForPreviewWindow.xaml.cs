@@ -6,6 +6,7 @@ using BSky.Statistics.Common;
 using System.Windows.Media;
 using BSky.Lifetime;
 using BSky.Statistics.Service.Engine.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace BSky.Controls.DesignerSupport
 {

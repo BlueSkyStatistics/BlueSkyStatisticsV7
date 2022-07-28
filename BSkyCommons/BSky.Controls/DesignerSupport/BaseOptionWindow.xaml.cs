@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
 using BSky.Statistics.Service.Engine.Interfaces;
+using Microsoft.Practices.Unity;
 
 //Thus is used by AUanalysiscommandbase.cs to create the base dialog in the main application
 //Thisis not used by the open command in dialog editor as the OK Syntax buttons are not displayed on the canvas

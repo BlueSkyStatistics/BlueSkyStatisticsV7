@@ -6,6 +6,7 @@ using BSky.Statistics.Common;
 using System.Windows.Media;
 using BSky.Lifetime;
 using BSky.Statistics.Service.Engine.Interfaces;
+using Microsoft.Practices.Unity;
 
 //Aaron 01/12/2014
 //Added this as it was difficult to disablethe syntax/paste on a subdialog. We never want any one to click paste on a sub dialog
