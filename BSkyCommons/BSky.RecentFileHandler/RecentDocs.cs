@@ -6,6 +6,7 @@ using System.Windows;
 using BSky.Lifetime.Interfaces;
 using BSky.Lifetime;
 using System.Runtime.CompilerServices;
+using Microsoft.Practices.Unity;
 
 namespace BSky.RecentFileHandler
 {
