@@ -1,6 +1,8 @@
 # BlueSkyStatisticsV7
 SPSS Equivalent for the Open Source R Project.
 The code/Solution is organized into the multiple projects.
+
+Follow the open source project plan and progress at https://www.blueskystatistics.com/category-s/113.htm
 ## Tool
 The project has been developed using Visual Studio (VS).
 
